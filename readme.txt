@@ -1,2 +1,3 @@
 Welcome !
-This is Our circle manager
+This is our circle manager.
+You can manage your circle easily.
