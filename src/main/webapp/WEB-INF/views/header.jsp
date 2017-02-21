@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"> 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/bootstrap.min.js"></script> 
-<link rel="stylesheet" href="css/form.css"> 
+<script src="js/bootstrap.min.js"></script>  
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/common.css" >
 </head> 
@@ -18,7 +17,7 @@
     <div>
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">
-                <div class="navbar-header"><a class="navbar-brand" href="#">Our Circle Manager</a>
+                <div class="navbar-header"><a class="navbar-brand" href="">Our Circle Manager</a>
                     <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                 </div>
                 <div class="collapse navbar-collapse" id="navcol-1">
@@ -33,7 +32,7 @@
                             </ul>
                         </li>
                     </ul>
-                    <p class="navbar-text navbar-right actions"><a class="navbar-link login" href="#">Log In</a> <a class="btn btn-default action-button" role="button" href="#">Sign Up</a></p>
+                    <p class="navbar-text navbar-right actions"><a class="navbar-link login" href="signin_view">Log In</a> <a class="btn btn-default action-button" role="button" href="signup_view">Sign Up</a></p>
                 </div>
             </div>
         </nav>
