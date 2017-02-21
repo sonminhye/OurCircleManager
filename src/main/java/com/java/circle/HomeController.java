@@ -42,9 +42,9 @@ public class HomeController {
 		return "signin_view";
 	}
 
-	@RequestMapping(value = "/signup")
+	@RequestMapping(value = "/signup_view")
 	public String signup(Locale locale, Model model) {
-		return "signup";
+		return "signup_view";
 	}
 	
 

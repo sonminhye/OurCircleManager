@@ -7,21 +7,21 @@ body {
   margin-bottom: 80px;
 }
 
-.form-signin {
+form {
   max-width: 380px;
   padding: 15px 35px 45px;
   margin: 0 auto;
   background-color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
-.form-signin .form-signin-heading,
-.form-signin .checkbox {
+form .form-signin-heading,
+form .checkbox {
   margin-bottom: 30px;
 }
-.form-signin .checkbox {
+form .checkbox {
   font-weight: normal;
 }
-.form-signin .form-control {
+form .form-control {
   position: relative;
   font-size: 16px;
   height: auto;
@@ -30,16 +30,22 @@ body {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-.form-signin .form-control:focus {
+form .form-control:focus {
   z-index: 2;
 }
-.form-signin input[type="text"] {
+form input[type="text"] {
   margin-bottom: -1px;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
 }
-.form-signin input[type="password"] {
+form input[type="password"] {
   margin-bottom: 20px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+
+#exTab2 h3 {
+  color : white;
+  background-color: #428bca;
+  padding : 5px 15px;
 }
