@@ -22,7 +22,9 @@ function openForm(evt, formName) {
 <title>회원가입</title>
 </head>
 <body>
+
 <jsp:include page="header.jsp"></jsp:include>
+
 <div class="tab">
 	<a href="javascript:void(0);" class="tablinks" onclick="openForm(event, 'normal')">일반회원</a>
 	<a href="javascript:void(0);" class="tablinks" onclick="openForm(event, 'manager')">관리자</a>
@@ -57,7 +59,7 @@ function openForm(evt, formName) {
 		</form>
 	</div>
 	
-	
+<jsp:include page="footer.jsp"></jsp:include>	
 	
 </body>
 </html>
