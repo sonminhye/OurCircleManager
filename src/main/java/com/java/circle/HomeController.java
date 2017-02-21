@@ -36,4 +36,8 @@ public class HomeController {
 		return "index";
 	}
 	
+	@RequestMapping("/signin_view")
+	public String goSignin(){
+		return "signin_view";
+	}
 }
