@@ -36,8 +36,17 @@ public class HomeController {
 		return "index";
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping("/signin_view")
 	public String goSignin(){
 		return "signin_view";
 	}
+||||||| merged common ancestors
+=======
+	@RequestMapping(value = "/signup")
+	public String signup(Locale locale, Model model) {
+		return "signup";
+	}
+	
+>>>>>>> f53552ff20f483e663c448ada785f8647a50aef5
 }
