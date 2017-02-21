@@ -22,8 +22,12 @@ function openForm(evt, formName) {
 <title>회원가입</title>
 </head>
 <body>
+<<<<<<< HEAD
 
 
+=======
+<jsp:include page="header.jsp"></jsp:include>
+>>>>>>> b7cd8b2b7a627c46e06d09a3cc7f4de01cb588c7
 <div class="tab">
 	<a href="javascript:void(0);" class="tablinks" onclick="openForm(event, 'normal')">일반회원</a>
 	<a href="javascript:void(0);" class="tablinks" onclick="openForm(event, 'manager')">관리자</a>
