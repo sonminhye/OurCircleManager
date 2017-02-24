@@ -21,7 +21,7 @@ public class CDao {
 	public CDao(){
 		try{
 			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/myblog");
+			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/circle");
 			
             System.out.println("connected");
 		}catch(Exception e){
@@ -40,14 +40,19 @@ public class CDao {
 		ResultSet resultSet = null;
 		
 		try{
+			System.out.println("1!");
 			//�����ͺ��̽��� ��� �ڷ� ������
-			String query = "select user_id, account, password, name, auth_id, univ from circle order by user_id desc";
+			String query = "select user_id, account, password, name, auth_id, univ from cUser order by user_id desc";
 			conn = dataSource.getConnection();
+			System.out.println("2!");
+			
 			pstmt = conn.prepareStatement(query);
 			resultSet = pstmt.executeQuery();
 			
-			while(resultSet.next()){
 			
+			while(resultSet.next()){
+				
+				System.out.println("here something!");
 				int user_id = resultSet.getInt("user_id");
 				String account = resultSet.getString("account");
 				String password = resultSet.getString("password");
