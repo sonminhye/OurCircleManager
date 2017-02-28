@@ -21,7 +21,7 @@
 		</ul>
 			<div class="tab-content">
 				<div id="n"  class="tab-pane active">
-				<form>
+				<form action"signup" method="POST">
 					<div class="form-group">
 						<label for="idinput">아이디</label>
 						<input type="text" name="n_userid" class="form-control" placeholder="아이디">

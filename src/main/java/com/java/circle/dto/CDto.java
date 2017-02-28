@@ -7,16 +7,16 @@ public class CDto {
 	String password;
 	String name;
 	int auth_id;
-	String univ;
+	String univ_id;
 	
-	public CDto(int user_id, String account, String password, String name, int auth_id, String univ) {
+	public CDto(int user_id, String account, String password, String name, int auth_id, String univ_id) {
 		super();
 		this.user_id = user_id;
 		this.account = account;
 		this.password = password;
 		this.name = name;
 		this.auth_id = auth_id;
-		this.univ = univ;
+		this.univ_id = univ_id;
 	}
 	
 	public int getUser_id() {
@@ -49,11 +49,11 @@ public class CDto {
 	public void setAuth_id(int auth_id) {
 		this.auth_id = auth_id;
 	}
-	public String getUniv() {
-		return univ;
+	public String getUniv_id() {
+		return univ_id;
 	}
-	public void setUniv(String univ) {
-		this.univ = univ;
+	public void setUniv_id(String univ_id) {
+		this.univ_id = univ_id;
 	}
 	
 }

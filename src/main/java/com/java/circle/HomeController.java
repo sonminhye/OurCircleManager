@@ -19,9 +19,7 @@ import com.java.circle.command.CListCommand;
  */
 @Controller
 public class HomeController {
-	
-	CCommand command;
-	
+
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
 	/**
@@ -40,26 +38,4 @@ public class HomeController {
 		
 		return "index";
 	}
-	
-
-	@RequestMapping("/signin_view")
-	public String goSignin(){
-		return "signin_view";
-	}
-
-	@RequestMapping(value = "/signup_view")
-	public String signup(Locale locale, Model model) {
-		return "signup_view";
-	}
-	
-	@RequestMapping("/user_list")
-	public String list(Model model) {
-		System.out.println("list()");
-		
-		command = new CListCommand();
-		command.execute(model);
-		
-		return "user_list";
-	}
-
 }

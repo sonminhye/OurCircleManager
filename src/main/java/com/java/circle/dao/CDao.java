@@ -42,7 +42,7 @@ public class CDao {
 		try{
 			System.out.println("1!");
 			//�����ͺ��̽��� ��� �ڷ� ������
-			String query = "select user_id, account, password, name, auth_id, univ from cUser order by user_id desc";
+			String query = "select user_id, account, password, name, auth_id, univ_id from cUser order by user_id desc";
 			conn = dataSource.getConnection();
 			System.out.println("2!");
 			
@@ -58,10 +58,10 @@ public class CDao {
 				String password = resultSet.getString("password");
 				String name = resultSet.getString("name");
 				int auth_id = resultSet.getInt("auth_id");
-				String univ = resultSet.getString("univ");
+				String univ_id = resultSet.getString("univ_id");
 				
 				
-				CDto dto = new CDto(user_id, account, password, name, auth_id, univ);
+				CDto dto = new CDto(user_id, account, password, name, auth_id, univ_id);
 				dtos.add(dto);  //����������߰� 
 			}
 			
