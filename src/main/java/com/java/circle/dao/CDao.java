@@ -31,10 +31,9 @@ public class CDao {
 		ResultSet resultSet = null;
 		
 		try{
-			
+
 			String query = "select user_id, account, password, name, auth_id, univ_id from cUser order by user_id desc";
-			conn = connectionMaker.getConnection();
-			
+			conn = connectionMaker.getConnection();			
 			pstmt = conn.prepareStatement(query);
 			resultSet = pstmt.executeQuery();
 			
@@ -46,6 +45,7 @@ public class CDao {
 				String password = resultSet.getString("password");
 				String name = resultSet.getString("name");
 				int auth_id = resultSet.getInt("auth_id");
+
 				int univ_id = resultSet.getInt("univ_id");
 
 				CDto dto = new CDto(user_id, account, password, name, auth_id, univ_id);

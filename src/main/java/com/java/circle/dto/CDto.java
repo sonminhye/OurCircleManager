@@ -8,7 +8,7 @@ public class CDto {
 	String name;
 	int auth_id;
 	int univ_id;
-	
+
 	public CDto(int user_id, String account, String password, String name, int auth_id, int univ_id) {
 		super();
 		this.user_id = user_id;
@@ -49,9 +49,11 @@ public class CDto {
 	public void setAuth_id(int auth_id) {
 		this.auth_id = auth_id;
 	}
+
 	public int getUniv_id() {
 		return univ_id;
 	}
+
 	public void setUniv_id(int univ_id) {
 		this.univ_id = univ_id;
 	}
