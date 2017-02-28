@@ -1,10 +1,11 @@
 package com.java.circle.dao;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 
@@ -16,21 +17,11 @@ import com.java.circle.dto.CDto;
 
 public class CDao {
 
-	DataSource dataSource;
+	ConnectionMaker connectionMaker;
 	
 	public CDao(){
-		try{
-			Context context = new InitialContext();
-			dataSource = (DataSource) context.lookup("java:comp/env/jdbc/circle");
-			
-            System.out.println("connected");
-		}catch(Exception e){
-			e.printStackTrace();
-			System.out.println("context error");
-		}
+		connectionMaker = new ConnectionMaker();
 	}
-	
-	
 	
 	public ArrayList<CDto> showList(){
 		ArrayList<CDto> dtos= new ArrayList<CDto>();
@@ -40,15 +31,11 @@ public class CDao {
 		ResultSet resultSet = null;
 		
 		try{
-			System.out.println("1!");
-			//�����ͺ��̽��� ��� �ڷ� ������
+
 			String query = "select user_id, account, password, name, auth_id, univ_id from cUser order by user_id desc";
-			conn = dataSource.getConnection();
-			System.out.println("2!");
-			
+			conn = connectionMaker.getConnection();			
 			pstmt = conn.prepareStatement(query);
 			resultSet = pstmt.executeQuery();
-			
 			
 			while(resultSet.next()){
 				
@@ -58,26 +45,66 @@ public class CDao {
 				String password = resultSet.getString("password");
 				String name = resultSet.getString("name");
 				int auth_id = resultSet.getInt("auth_id");
-				String univ_id = resultSet.getString("univ_id");
-				
-				
+
+				int univ_id = resultSet.getInt("univ_id");
+
 				CDto dto = new CDto(user_id, account, password, name, auth_id, univ_id);
-				dtos.add(dto);  //����������߰� 
+				dtos.add(dto);  
 			}
 			
 		}catch (Exception e){
 			e.printStackTrace();
 		}finally{
+			
+			connectionMaker.closeConnection(conn);
+			
 			try{
-				//�پ��ڷ���� ��ȯ
+				
 				if(resultSet != null)resultSet.close();
 				if(pstmt != null)pstmt.close();
-				if(conn != null)conn.close();
+				
 			}catch(Exception e2){
 				e2.printStackTrace();
 			}
 		}
 		return dtos;
+	}
+	
+	public void signup(HashMap<String,String> param){
+		
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		conn = connectionMaker.getConnection();
+		try {
+
+			String query = "insert into cUser (account, password, name, auth_id, univ_id) values (?,?,?,?,?)";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, param.get("account").toString());
+			pstm.setString(2, param.get("password").toString());
+			pstm.setString(3, param.get("name").toString());
+			pstm.setInt(4, Integer.parseInt(param.get("auth").toString()));
+			pstm.setInt(5, Integer.parseInt(param.get("univ").toString()));
+		
+			int n = pstm.executeUpdate();
+			
+			System.out.println("쿼리결과:" + n);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstm!=null)
+						pstm.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+
 	}
 	
 }

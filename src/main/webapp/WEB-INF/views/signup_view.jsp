@@ -21,27 +21,29 @@
 		</ul>
 			<div class="tab-content">
 				<div id="n"  class="tab-pane active">
-				<form action"signup" method="POST">
+				<form action="signup" method="POST">
+					<input type="hidden" name="auth" value="1"/>
 					<div class="form-group">
 						<label for="idinput">아이디</label>
-						<input type="text" name="n_userid" class="form-control" placeholder="아이디">
+						<input type="text" name="account" class="form-control" placeholder="아이디">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">이름</label>
-						<input type="text" name="n_name" class="form-control" placeholder="이름">
+						<input type="text" name="name" class="form-control" placeholder="이름">
 					</div>
 					<div class="form-group">
 						<label for="passwordinput">비밀번호</label>
-						<input type="text" name="n_password" class="form-control" placeholder="숫자,특수문자 포함 8자이상">
+						<input type="password" name="password" class="form-control" placeholder="숫자,특수문자 포함 8자이상">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">비밀번호 확인</label>
-						<input type="text" name="n_password_check" class="form-control" placeholder="비밀번호와 똑같이 입력해주세요">
+						<input type="password" name="password_check" class="form-control" placeholder="비밀번호와 똑같이 입력해주세요">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">학교</label>
-						<select name="n_school"  class="form-control">
-		    					<option value="dongguk">동국대학교</option>
+						<select name="univ"  class="form-control">
+		    					<option value="1">동국대학교</option>
+		    					<option value="2">서울대학교</option>
 		    			  </select>
 					</div>
 					<input type="submit" value="가입" class="btn btn-primary btn-block">
@@ -50,26 +52,27 @@
 			</div> <!-- normal form close -->
 
 			<div id="m" class="tab-pane">
-			<form>
+			<form action="signup" method="POST">
+			<input type="hidden" name="auth" value="2"/>
 					<div class="form-group">
 						<label for="idinput">아이디</label>
-						<input type="text" name="m_userid" class="form-control" placeholder="아이디">
+						<input type="text" name="userid" class="form-control" placeholder="아이디">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">이름</label>
-						<input type="text" name="m_name" class="form-control" placeholder="이름">
+						<input type="text" name="name" class="form-control" placeholder="이름">
 					</div>
 					<div class="form-group">
 						<label for="passwordinput">비밀번호</label>
-						<input type="text" name="m_password" class="form-control" placeholder="숫자,특수문자 포함 8자이상">
+						<input type="text" name="password" class="form-control" placeholder="숫자,특수문자 포함 8자이상">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">비밀번호 확인</label>
-						<input type="text" name="m_password_check" class="form-control" placeholder="비밀번호와 똑같이 입력해주세요">
+						<input type="text" name="password_check" class="form-control" placeholder="비밀번호와 똑같이 입력해주세요">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">학교</label>
-						<select name="m_school"  class="form-control">
+						<select name="univ"  class="form-control">
 		    					<option value="dongguk">동국대학교</option>
 		    			  </select>
 					</div>
