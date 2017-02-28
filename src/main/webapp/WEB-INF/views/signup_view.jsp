@@ -64,16 +64,16 @@
 					</div>
 					<div class="form-group">
 						<label for="passwordinput">비밀번호</label>
-						<input type="text" name="password" class="form-control" placeholder="숫자,특수문자 포함 8자이상">
+						<input type="password" name="password" class="form-control" placeholder="숫자,특수문자 포함 8자이상">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">비밀번호 확인</label>
-						<input type="text" name="password_check" class="form-control" placeholder="비밀번호와 똑같이 입력해주세요">
+						<input type="password" name="password_check" class="form-control" placeholder="비밀번호와 똑같이 입력해주세요">
 					</div>
 					<div class="form-group">
 						<label for="nameinput">학교</label>
 						<select name="univ"  class="form-control">
-		    					<option value="dongguk">동국대학교</option>
+		    					<option value="1">동국대학교</option>
 		    			  </select>
 					</div>
 					<input type="submit" value="가입" class="btn btn-primary btn-block">
