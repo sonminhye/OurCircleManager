@@ -16,6 +16,10 @@ html{
 
 
 .navigation-clean-button .navbar-brand{
+	
+  padding-top:10px;
+  padding-bottom:15px;
+  padding-left:10px;
   font-weight:bold;
   color:inherit;
 }
