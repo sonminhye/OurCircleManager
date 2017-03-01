@@ -17,9 +17,13 @@ import com.java.circle.command.CSignupCommand;
 public class CController {
 	CCommand command = null;
 
+	@RequestMapping("/main")
+	public String showMain(){
+		return "main";
+	}
 
 	@RequestMapping("/signin_view")
-	public String goSignin(){
+	public String showSignin(){
 		return "signin_view";
 	}
 

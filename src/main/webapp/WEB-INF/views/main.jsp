@@ -11,10 +11,10 @@
 
     <div id="top" class="main">
         <div class="text-vertical-center">
-            <h1>Our Circle Manager</h1>
-            <h3>Welcome to autumnminhye's project!</h3>
+            <h1>우리들의 순간, 모먼트</h1>
+            <h3>모임 매니지먼트 모먼트와 함께 모임을 관리해보세요!</h3>
             <br>
-            <a href="#about" class="btn btn-dark btn-lg">Find Out More</a>
+            <a href="#about" class="btn btn-dark btn-lg">시작하기</a>
         </div>
     </div>
 	
