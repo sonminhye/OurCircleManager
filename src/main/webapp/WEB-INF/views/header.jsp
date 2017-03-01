@@ -12,7 +12,6 @@
 <link rel="stylesheet" href="css/header.css">
 <link rel="stylesheet" href="css/common.css" >
 </head> 
-
 <body>
     <div>
         <nav class="navbar navbar-default navigation-clean-button">

@@ -26,6 +26,8 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/> 
+	
 	<context:component-scan base-package="com.java.circle" />
 	
 	
