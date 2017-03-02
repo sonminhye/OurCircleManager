@@ -11,14 +11,10 @@
 
     <div id="top" class="main">
         <div class="text-vertical-center">
-            <h1>지금 바로 모임에 가입해 보세요 !</h1>
-            <br>
-            <a href="addcircle_view" class="btn btn-dark btn-lg">시작하기</a>
+            <h2>동아리 검색 , 추가 페이지</h2>
         </div>
     </div>
 	
 <jsp:include page="footer.jsp"></jsp:include> 
 </body>
 </html>
-
-<!--   my account <%= session.getAttribute("account") %> -->
