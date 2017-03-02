@@ -5,6 +5,7 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -69,8 +70,12 @@ public class CController {
 		System.out.println("checkSignin()");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
+		
+		
 		//request 의 값을 model 에 추가해주기
 		model.addAttribute("param", param);
+		
+		
 		command = new CSigninCheckCommand();
 		command.execute(model);
 		
@@ -79,15 +84,21 @@ public class CController {
 	
 	@RequestMapping(value="/check_circle",method=RequestMethod.POST)
 	@ResponseBody
-	public String checkCircle(@RequestBody HashMap<String,Object> param, Model model){
+	public String checkCircle(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
 		
 		System.out.println("checkCircle()");
+		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		HttpSession session = request.getSession();
+		session.setAttribute("account", param.get("account"));
 		
 		//request 의 값을 model 에 추가해주기
 		model.addAttribute("param", param);
 		command = new CCircleCheckCommand();
 		command.execute(model);
+		
+		
 		
 		if(model.asMap().get("circle").toString().equals("[]")) //동아리 정보가 없다는 뜻
 			return "nocircle_view";

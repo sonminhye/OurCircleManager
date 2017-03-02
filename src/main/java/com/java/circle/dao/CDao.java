@@ -158,7 +158,7 @@ public class CDao {
 		
 		try{
 
-			String query = "select * from cCircle where circle_id=(select circle_id from cUser_Circle where user_id=?)";
+			String query = "select * from cCircle where circle_id=(select circle_id from cUser_Circle where account=?)";
 			conn = connectionMaker.getConnection();			
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, account);
