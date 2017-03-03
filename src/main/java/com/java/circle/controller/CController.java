@@ -25,22 +25,23 @@ import com.java.circle.command.CSignupCommand;
 public class CController {
 	CCommand command = null;
 
-	@RequestMapping("/main")
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String showMain(){
 		return "main";
 	}
 
-	@RequestMapping("/signin_view")
+	@RequestMapping(value = "/signin_view", method = RequestMethod.GET)
 	public String showSignin(){
 		return "signin_view";
 	}
 
-	@RequestMapping(value = "/signup_view")
+	@RequestMapping(value = "/signup_view", method = RequestMethod.GET)
 	public String showSignup(Locale locale, Model model) {
 		return "signup_view";
 	}
 	
-	@RequestMapping("/user_list")
+	//TEST용
+	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
 	public String list(Model model) {
 		System.out.println("list()");
 		
@@ -49,6 +50,7 @@ public class CController {
 		
 		return "user_list";
 	}
+	//
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String doSignup(HttpServletRequest request, Model model){
@@ -59,18 +61,16 @@ public class CController {
 		command = new CSignupCommand();
 		command.execute(model);
 		
-		return "signin_view";
+		return "signin_view"; //가입하고 나면 로그인 화면으로
 	}
 	
-	
+	//밑에꺼랑 맞춰서 이름을 check_signin 같이 바꾸면 좋을듯..?^_^
 	@RequestMapping(value="/signin_check",method=RequestMethod.POST)
 	@ResponseBody
-	public String checkSignin(@RequestBody HashMap<String,Object> param, Model model){
+	public String checkSignin(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
 		
 		System.out.println("checkSignin()");
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
-		
 		
 		//request 의 값을 model 에 추가해주기
 		model.addAttribute("param", param);
@@ -82,6 +82,7 @@ public class CController {
 		return model.asMap().get("check").toString();
 	}
 	
+	
 	@RequestMapping(value="/check_circle",method=RequestMethod.POST)
 	@ResponseBody
 	public String checkCircle(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
@@ -90,6 +91,7 @@ public class CController {
 		
 		HashMap<String,Object> resultMap = new HashMap<String,Object>();
 		
+		//세션에 추가 (interceptor에서 로그인 여부 체크할 수 있음)
 		HttpSession session = request.getSession();
 		session.setAttribute("account", param.get("account"));
 		
@@ -98,23 +100,24 @@ public class CController {
 		command = new CCircleCheckCommand();
 		command.execute(model);
 		
-		
-		
 		if(model.asMap().get("circle").toString().equals("[]")) //동아리 정보가 없다는 뜻
 			return "nocircle_view";
 		else
 			return "circle_view";
-	
 	}
 	
-	@RequestMapping("/nocircle_view")
-	public String goNocircle(){
+	@RequestMapping(value = "/nocircle_view", method = RequestMethod.GET)
+	public String goNoCircle(){
 		return "nocircle_view";
 	}
 	
-	@RequestMapping("/circle_view")
+	@RequestMapping(value = "/circle_view", method = RequestMethod.GET)
 	public String goCircle(){
 		return "circle_view";
 	}
 	
+	@RequestMapping(value = "/addcircle_view", method = RequestMethod.GET)
+	public String goAddCircle(){
+		return "addcircle_view";
+	}
 }

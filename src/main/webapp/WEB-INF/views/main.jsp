@@ -14,7 +14,7 @@
             <h1>우리들의 순간, 모먼트</h1>
             <h3>모임 매니지먼트 모먼트와 함께 모임을 관리해보세요!</h3>
             <br>
-            <a href="#about" class="btn btn-dark btn-lg">시작하기</a>
+            <a href="addcircle_view" class="btn btn-dark btn-lg">시작하기</a>
         </div>
     </div>
 	
