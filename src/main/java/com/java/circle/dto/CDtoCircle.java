@@ -4,6 +4,7 @@ public class CDtoCircle {
 	int circle_id;
 	String name;
 	int membercount;
+	int univ_id;
 	
 	public CDtoCircle(int circle_id, String name, int membercount, int univ_id) {
 		super();
@@ -38,5 +39,5 @@ public class CDtoCircle {
 	public void setUniv_id(int univ_id) {
 		this.univ_id = univ_id;
 	}
-	int univ_id;
+	
 }

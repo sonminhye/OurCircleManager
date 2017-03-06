@@ -166,11 +166,14 @@ public class CDao {
 			
 			while(resultSet.next()){
 				
-				System.out.println("here something!");
+				
+				
 				int circle_id = resultSet.getInt("circle_id");
 				String name = resultSet.getString("name");
 				int membercount = resultSet.getInt("membercount");
 				int univ_id = resultSet.getInt("univ_id");
+				
+				System.out.println("동아리 이름:" + name);
 				
 				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id);
 				dtos.add(dto);  

@@ -21,7 +21,7 @@ public class CCircleCheckCommand implements CCommand {
 		CDao dao = new CDao();
 		ArrayList<CDtoCircle> dtos = dao.showCircle(account);
 		
-		model.addAttribute("circle", dtos);
+		model.addAttribute("circleList", dtos);
 	}
 
 }

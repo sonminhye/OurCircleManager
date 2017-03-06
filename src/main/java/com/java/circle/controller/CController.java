@@ -3,17 +3,20 @@ package com.java.circle.controller;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.Callable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.java.circle.command.CCircleCheckCommand;
 import com.java.circle.command.CCommand;
@@ -24,7 +27,8 @@ import com.java.circle.command.CSignupCommand;
 @Controller
 public class CController {
 	CCommand command = null;
-
+	Model myModel = null;
+	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String showMain(){
 		return "main";
@@ -48,6 +52,7 @@ public class CController {
 		command = new CListCommand();
 		command.execute(model);
 		
+		System.out.println(model.asMap().get("list").toString());
 		return "user_list";
 	}
 	//
@@ -65,7 +70,7 @@ public class CController {
 	}
 	
 	//밑에꺼랑 맞춰서 이름을 check_signin 같이 바꾸면 좋을듯..?^_^
-	@RequestMapping(value="/signin_check",method=RequestMethod.POST)
+	@RequestMapping(value="/check_signin",method=RequestMethod.POST)
 	@ResponseBody
 	public String checkSignin(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
 		
@@ -79,13 +84,14 @@ public class CController {
 		command = new CSigninCheckCommand();
 		command.execute(model);
 		
+		
 		return model.asMap().get("check").toString();
 	}
 	
 	
 	@RequestMapping(value="/check_circle",method=RequestMethod.POST)
 	@ResponseBody
-	public String checkCircle(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
+	public String check_Circle(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
 		
 		System.out.println("checkCircle()");
 		
@@ -99,20 +105,25 @@ public class CController {
 		model.addAttribute("param", param);
 		command = new CCircleCheckCommand();
 		command.execute(model);
+		myModel = model;
 		
-		if(model.asMap().get("circle").toString().equals("[]")) //동아리 정보가 없다는 뜻
+		if(model.asMap().get("circleList").toString().equals("[]")) //동아리 정보가 없다는 뜻
 			return "nocircle_view";
-		else
+		else{
 			return "circle_view";
+		}
 	}
 	
 	@RequestMapping(value = "/nocircle_view", method = RequestMethod.GET)
-	public String goNoCircle(){
+	public String goNoCircle(Model model){
+		
 		return "nocircle_view";
 	}
 	
 	@RequestMapping(value = "/circle_view", method = RequestMethod.GET)
-	public String goCircle(){
+	public String goCircle(Model model){
+		model.addAttribute("circleList",myModel.asMap().get("circleList")); //동아리 정보넣어주기		
+		
 		return "circle_view";
 	}
 	
@@ -120,4 +131,6 @@ public class CController {
 	public String goAddCircle(){
 		return "addcircle_view";
 	}
+	
 }
+

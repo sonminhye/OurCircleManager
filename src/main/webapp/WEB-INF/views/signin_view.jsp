@@ -14,29 +14,28 @@ $(function(){
 		var formData = {"account" :account, "password" :password};
 		var jsonStr = JSON.stringify(formData); //json 으로 바꿔주는 이런 작업이 없어서 400 에러가 떴었음.
 		
-		event.preventDefault(); // 체크 후 넘어가게 하기 위해
+		event.preventDefault(); 
 		
 		$.ajax({
 				type : "POST",
-				url : "signin_check",
+				url : "check_signin",
 				contentType:'application/json; charset=UTF-8',
 				data : jsonStr,
-				 success: function(data) {
+				 success: function(data) { //정보를 받는 데 성공했다면,
 				     if(data=="0"){
 				    	 alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
 				     }else if(data=="1"){
-				    	 //넘겨주는 기능 구현
+				    	 //동아리가 있는지 여부를 확인하기 위한 작업 
 				    	 $.checkCircle(jsonStr);
-				    	 //window.location.href = "signin_success";
 				     }    	
 				 },
 				 error:function(request,status,error){
-				        alert("error code:"+request.status+"\n"+"error:"+error);
+				        alert("error code:"+request.status+"\n"+"error:"+error); //post 가 실패했다면, error코드를 호출
 				 }
 		}); 
 	});
 	
-	$.checkCircle = function(jsonStr){
+	$.checkCircle = function(jsonStr){ //function
 		
 		$.ajax({
 			type : "POST",
@@ -44,7 +43,7 @@ $(function(){
 			contentType:'application/json; charset=UTF-8',
 			data : jsonStr,
 			 success: function(data) {
-			   window.location.href= data;
+			   window.location.href= data; //data 로 넘어오는 페이지로 이동. 동아리 존재 여부에 따라서!
 			 },
 			 error:function(request,status,error){
 			        alert("error code:"+request.status+"\n"+"error:"+error);
