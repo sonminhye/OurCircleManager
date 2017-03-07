@@ -149,6 +149,48 @@ public class CDao {
 		return 0;
 	}
 	
+	
+	public int checkSignup(String account){
+
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		conn = connectionMaker.getConnection();
+		try {
+
+			//row count 라는 열 이름으로 해당 쿼리의 행 개수를 가져온다.
+			String query = "select count(*) as rowcount from cUser where account=?";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, account);
+			
+			//쿼리를 실행하고
+			ResultSet rs = pstm.executeQuery();
+			
+			//개수를 가져온다
+			rs.next();
+			int count = rs.getInt("rowcount");
+			System.out.println("개수 : " + count);
+			
+			return count;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstm!=null)
+						pstm.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+		return 0;
+	}
+	
+	
 	public ArrayList<CDtoCircle> showCircle(String account){
 		ArrayList<CDtoCircle> dtos= new ArrayList<CDtoCircle>();
 		
