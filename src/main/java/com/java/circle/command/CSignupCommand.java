@@ -18,6 +18,7 @@ public class CSignupCommand implements CCommand {
 
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
+		System.out.println("signupCommand");
 		
 		if(request.equals(null))
 			System.out.println("request is null");
