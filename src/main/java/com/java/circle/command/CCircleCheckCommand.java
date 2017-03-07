@@ -14,9 +14,7 @@ public class CCircleCheckCommand implements CCommand {
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = model.asMap(); 
-		Map<String,Object> dataMap =  (Map<String, Object>) map.get("param"); //param의 값을 가져온다
-		
-		String account = dataMap.get("account").toString();
+		String account = map.get("account").toString();
 		
 		CDao dao = new CDao();
 		ArrayList<CDtoCircle> dtos = dao.showCircle(account);

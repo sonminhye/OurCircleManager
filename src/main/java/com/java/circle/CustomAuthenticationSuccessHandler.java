@@ -84,10 +84,13 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
+		
+		
 		String loginid = request.getParameter(loginidname);
 		String loginpasswd = request.getParameter(loginpasswdname);
 		String loginRedirect = request.getParameter(loginredirectname);
-		
+		System.out.println("authentication Success 함수 ");
+		System.out.println(loginidname + " : " + loginid);
 		request.setAttribute(loginidname, loginid);
 		request.setAttribute(loginpasswdname, loginpasswd);
 		request.setAttribute(loginredirectname, loginRedirect);

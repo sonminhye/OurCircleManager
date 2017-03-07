@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -31,9 +32,19 @@
                             </ul>
                         </li>
                     </ul>
+                    
                     <p class="navbar-text navbar-right actions">
-                   	 	<a class="navbar-link login" href="signin_view">Sign In</a> <a class="btn btn-default action-button" role="button" href="signup_view">Sign Up</a>
-                    	<a class="navbar-link login" href="signin_view">My Info</a> 
+                    	<!-- 로그인 정보가 존재할 때 -->
+                    	<sec:authorize access="isAuthenticated()">
+							<a class="btn btn-default action-button" role="button" href="j_spring_security_logout" target="_self">Logout</a>
+							<a class="navbar-link login" href="#">My Info</a>
+						</sec:authorize>
+						<!-- 로그인 정보가 존재하지 않을 때. 익명의 사용자 -->
+						<sec:authorize access="isAnonymous()">
+                   	 		<a class="navbar-link login" href="signin_view">Sign In</a> 
+                   	 		<a class="btn btn-default action-button" role="button" href="signup_view">Sign Up</a>
+                   		</sec:authorize>	
+                  
                     </p>
                 </div>
             </div>

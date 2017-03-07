@@ -13,30 +13,23 @@
 		 	  authentication-failure-handler-ref: 로그인 실패 시 처리해주는 handler 의 아이디를 등록
 		  -->
 	<security:form-login login-page="/signin_view" 
+						 authentication-success-handler-ref="customAuthenticationSuccessHandler"
 						 authentication-failure-handler-ref="customAuthenticationFailureHandler"
 						 username-parameter="account" 
 						 password-parameter="password" />
 		
-		<security:intercept-url pattern="/addcircle_view" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"	/>
+		<security:intercept-url pattern="/check_signin_ok" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"	/>
 	</security:http>
 	
 	<!-- 로그인실패 시 어떻게 처리해 줄 것인지를 저장하는 handler클래스. bean 으로 요소들을 초기화 먼저 시켜준다-->
 	<bean id="customAuthenticationFailureHandler" class="com.java.circle.CustomAuthenticationFailureHandler">
 		<!-- 핸들러의 변수들을 여기서 미리 세팅해주는 역할..? -->
-		<property name="loginidname" value="loginid"></property>
-		<property name="loginpasswdname" value="loginpwd"></property>
-		<property name="loginredirectname" value="loginRedirect"></property>
-		<property name="exceptionmsgname" value="securityexceptionmsg"></property>
-		<property name="defaultFailureUrl" value="/signin_view?fail=true"></property>
+		
 	</bean>
 	
 	<bean id="customAuthenticationSuccessHandler" class="com.java.circle.CustomAuthenticationSuccessHandler">
 		<!-- 핸들러의 변수들을 여기서 미리 세팅해주는 역할..? -->
-		<property name="loginidname" value="loginid"></property>
-		<property name="loginpasswdname" value="loginpwd"></property>
-		<property name="loginredirectname" value="loginRedirect"></property>
-		<property name="exceptionmsgname" value="securityexceptionmsg"></property>
-		<property name="defaultSuccessUrl" value="/check_circle"></property>
+		
 		
 	</bean>
 	

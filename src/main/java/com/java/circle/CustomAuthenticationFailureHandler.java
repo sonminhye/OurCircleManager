@@ -91,6 +91,9 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 		String loginpasswd = request.getParameter(loginpasswdname);
 		String loginRedirect = request.getParameter(loginredirectname);
 		
+		System.out.println("authentication Failure 함수 ");
+		System.out.println(loginidname + " : " + loginid);
+		
 		request.setAttribute(loginidname, loginid);
 		request.setAttribute(loginpasswdname, loginpasswd);
 		request.setAttribute(loginredirectname, loginRedirect);
