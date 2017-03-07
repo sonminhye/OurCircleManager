@@ -155,5 +155,11 @@ public class CController {
 		return "logout";
 	}
 	
+	@RequestMapping(value="/fail")
+	public String failed(Model model){
+		System.out.println("로긘 실패");
+		return "fail";
+	}
+	
 }
 
