@@ -6,21 +6,47 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
 	<security:http auto-config="true" use-expressions="true">
-		<!-- 로그인 ,welcome 페이지를 들어갈 때 admin혹은 user 권한이 있어야만 한다. -->
-		<!-- 그래서 login.html 를 접속했을 때 해당 권한을 가지고 있지 않은 유저라면 
-		 security 자체내에서 제공하는 로그인 폼이 나오면서 로그인을 하라고 함! -->
-		<security:form-login login-page="/signin_view"/>
-		<security:intercept-url pattern="/addcircle_view" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		 <!-- login-page: 로그인폼 지정
+		 	  username-parameter: 해당 로그인 폼에서 아이디에 해당하는 태그의 이름
+		 	  password-parameter: 해당 로그인 폼에서 패스워드에 해당하는 태그의 이름
+		 	  default-target-url: 로그인 성공 후 가는 페이지? 우선 임시로 설정했음
+		 	  authentication-failure-handler-ref: 로그인 실패 시 처리해주는 handler 의 아이디를 등록
+		  -->
+	<security:form-login login-page="/signin_view" 
+						 authentication-failure-handler-ref="customAuthenticationFailureHandler"
+						 username-parameter="account" 
+						 password-parameter="password" />
+		
+		<security:intercept-url pattern="/addcircle_view" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"	/>
 	</security:http>
+	
+	<!-- 로그인실패 시 어떻게 처리해 줄 것인지를 저장하는 handler클래스. bean 으로 요소들을 초기화 먼저 시켜준다-->
+	<bean id="customAuthenticationFailureHandler" class="com.java.circle.CustomAuthenticationFailureHandler">
+		<!-- 핸들러의 변수들을 여기서 미리 세팅해주는 역할..? -->
+		<property name="loginidname" value="loginid"></property>
+		<property name="loginpasswdname" value="loginpwd"></property>
+		<property name="loginredirectname" value="loginRedirect"></property>
+		<property name="exceptionmsgname" value="securityexceptionmsg"></property>
+		<property name="defaultFailureUrl" value="/fail"></property>
+	</bean>
+	
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-				<!-- 임의설정 권한 별 아이디와 패스워드 -->
-				<security:user name="user" password="123" authorities="ROLE_USER"/>
-				<security:user name="admin" password="123" authorities="ROLE_ADMIN,ROLE_USER"/>
-			</security:user-service>
+			<!-- 
+			user-by-username-query 에서 enabled 는 원래 true/false 이런 설정값을 가져오는 기능인데
+			우리는 애초에 그런 컬럼을 만들어주지는 않았음...ㅇ미 구현한 기능들도 있기 때문에 수정해주려면 상의해야 할 듯!! 
+			auth_id 는 우리가 현 일반유저 같은 경우 1, 관리자는 2 가 되도록 구현해놨음... 
+			시큐리티에서 enabled 컬럼이 true 인 유저만 로그인이 되도록 해놓은 것 같음..
+			어쨌든 우리가 회원가입 시 auth_id 가 1이 기본값이 되도록 설정해놓기도 했고(맞나?)
+			문제 없을 것 같아서 일단은 auth_id 컬럼을 enabled 로 명명해서 써놨음
+			 -->
+			<security:jdbc-user-service data-source-ref="dataSource"
+ 			users-by-username-query="select account as username, password, auth_id as enabled FROM cUser WHERE account=?"
+ 			authorities-by-username-query="select u.account as username, a.name as role from cUser u,cAuth a where u.account=?"/>
 		</security:authentication-provider>
 	</security:authentication-manager>
 
 </beans>
+
+

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -55,10 +56,10 @@ $(function(){
 </script>
 </head>
 <body>
-<jsp:include page="header.jsp"></jsp:include>
 
+<jsp:include page="header.jsp"></jsp:include>
   <div class="wrapper">
-    <form class="form-signin" name="signinform" id="signinform">       
+    <form class="form-signin" action="j_spring_security_check" method="post" >       
       <h2 class="form-signin-heading">Please login</h2>
       <input type="text" class="form-control" id="account" name="account" placeholder="Email Address" required="" autofocus="" />
       <input type="password" class="form-control" id="password" name="password" placeholder="Password" required=""/>      
