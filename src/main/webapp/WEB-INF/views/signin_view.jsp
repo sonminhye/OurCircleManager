@@ -7,31 +7,28 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
 $(function(){
-	
+	//일단 에이젝스는 지금 필요없음. 
 	$("#signinform").submit(function(event){
 			
-		var account = $("#account").val();
-		var password = $("#password").val();
-		var formData = {"account" :account, "password" :password};
+		//var account = $("#account").val();
+		//var password = $("#password").val();
+		//var formData = {"account" :account, "password" :password};
+		var formData = $("#signinform").serialize();
 		var jsonStr = JSON.stringify(formData); //json 으로 바꿔주는 이런 작업이 없어서 400 에러가 떴었음.
 		
 		event.preventDefault(); 
 		
 		$.ajax({
 				type : "POST",
-				url : "check_signin",
+				url : "j_spring_security_check",
 				contentType:'application/json; charset=UTF-8',
 				data : jsonStr,
 				 success: function(data) { //정보를 받는 데 성공했다면,
-				     if(data=="0"){
-				    	 alert("아이디 혹은 비밀번호가 일치하지 않습니다.");
-				     }else if(data=="1"){
-				    	 //동아리가 있는지 여부를 확인하기 위한 작업 
-				    	 $.checkCircle(jsonStr);
-				     }    	
+				 	 alert(data);
 				 },
 				 error:function(request,status,error){
 				        alert("error code:"+request.status+"\n"+"error:"+error); //post 가 실패했다면, error코드를 호출
+				        
 				 }
 		}); 
 	});
@@ -59,8 +56,12 @@ $(function(){
 
 <jsp:include page="header.jsp"></jsp:include>
   <div class="wrapper">
-    <form class="form-signin" action="j_spring_security_check" method="post" >       
+    <form class="form-signin" method="post" action="j_spring_security_check">       
       <h2 class="form-signin-heading">Please login</h2>
+        <c:if test="${not empty param.fail}">
+			<font color="red"><p>Your login attempt was not successful, try again</p></font>	
+		</c:if>
+		
       <input type="text" class="form-control" id="account" name="account" placeholder="Email Address" required="" autofocus="" />
       <input type="password" class="form-control" id="password" name="password" placeholder="Password" required=""/>      
       <label class="checkbox">

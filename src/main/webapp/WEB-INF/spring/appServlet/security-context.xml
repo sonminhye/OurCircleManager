@@ -27,8 +27,19 @@
 		<property name="loginpasswdname" value="loginpwd"></property>
 		<property name="loginredirectname" value="loginRedirect"></property>
 		<property name="exceptionmsgname" value="securityexceptionmsg"></property>
-		<property name="defaultFailureUrl" value="/fail"></property>
+		<property name="defaultFailureUrl" value="/signin_view?fail=true"></property>
 	</bean>
+	
+	<bean id="customAuthenticationSuccessHandler" class="com.java.circle.CustomAuthenticationSuccessHandler">
+		<!-- 핸들러의 변수들을 여기서 미리 세팅해주는 역할..? -->
+		<property name="loginidname" value="loginid"></property>
+		<property name="loginpasswdname" value="loginpwd"></property>
+		<property name="loginredirectname" value="loginRedirect"></property>
+		<property name="exceptionmsgname" value="securityexceptionmsg"></property>
+		<property name="defaultSuccessUrl" value="/check_circle"></property>
+		
+	</bean>
+	
 	
 	
 	<security:authentication-manager>

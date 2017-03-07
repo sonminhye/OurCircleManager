@@ -31,7 +31,13 @@ public class CController {
 	}
 
 	@RequestMapping(value = "/signin_view", method = RequestMethod.GET)
-	public String showSignin(){
+	public String showSignin(){		
+		return "signin_view";
+	}
+	
+	@RequestMapping(value = "/signin_view", method = RequestMethod.POST)
+	public String showSigninPost(){		
+		System.out.println("여기는 signin post 버전");
 		return "signin_view";
 	}
 
@@ -103,23 +109,25 @@ public class CController {
 	}
 	
 	
+	
 	@RequestMapping(value="/check_circle",method=RequestMethod.POST)
-	@ResponseBody
-	public String check_Circle(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
+	public String check_Circle(HttpServletRequest request, Model model){
 		
 		System.out.println("checkCircle()");
-		
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		String account=null;
 		
 		//세션에 추가 (interceptor에서 로그인 여부 체크할 수 있음)
 		HttpSession session = request.getSession();
-		session.setAttribute("account", param.get("account"));
+		session.setAttribute("account", request.getParameter("account"));
 		
+	
 		//request 의 값을 model 에 추가해주기
-		model.addAttribute("param", param);
+		
+		model.addAttribute("account", account);
+		
 		command = new CCircleCheckCommand();
 		command.execute(model);
-		myModel = model;
+		model = myModel;
 		
 		if(model.asMap().get("circleList").toString().equals("[]")) //동아리 정보가 없다는 뜻
 			return "nocircle_view";
