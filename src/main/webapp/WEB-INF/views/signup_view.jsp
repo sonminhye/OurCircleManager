@@ -19,12 +19,16 @@ span{
 }
 </style>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript" src="js/httpRequest.js"></script>
 <script>
-	
+
 	var checkFirst = false;
 	var lastKeyword = '';
 	var loopSendKeyword = false;
+	
+	var accountCheck = document.getElementByName(accountCheck).value;
+	var passwordCheck = document.getElementByName(passwordCheck).value;
+
 	
 	function checkAccount() {
 	 if (checkFirst == false) {
@@ -35,7 +39,8 @@ span{
 	 checkFirst = true;
 	}
 	
-	//비밀번호확인
+	// 비밀번호확인 
+	//to do : 비밀번호 글자수, 특수문자, 영숫자조합 체크하기 
 	function checkPwd(){
 	 var f1 = document.forms[0];
 	 var pw1 = f1.password.value;
@@ -43,10 +48,11 @@ span{
 	 if(pw1!=pw2){
 	  document.getElementById('checkPwd').style.color = "red";
 	  document.getElementById('checkPwd').innerHTML = "비밀번호와 똑같이 입력해주세요.";
+	  passwordCheck = 0;
 	 }else{
 	  document.getElementById('checkPwd').style.color = "black";
-	  document.getElementById('checkPwd').innerHTML = "암호가 확인 되었습니다.";
-	  
+	  document.getElementById('checkPwd').innerHTML = "비밀번호가 확인 되었습니다.";
+	  passwordCheck = 1; //비밀번호 임력했음을 체크
 	 }
 	 
 	}
@@ -59,13 +65,15 @@ span{
 	 if (keyword == '') {
 	  lastKeyword = '';
 	  document.getElementById('checkMsg').style.color = "black";
-	  document.getElementById('checkMsg').innerHTML = "아이디를 입력하세요ㅜㅜ.";
+	  document.getElementById('checkMsg').innerHTML = "아이디를 입력하세요.";
 	 } else if (keyword != lastKeyword) {
 	  lastKeyword = keyword;
 	  
 	  if (keyword != '') {
-	   var params = "account="+encodeURIComponent(keyword);
-	   sendRequest("check_signup", params, displayResult, 'POST');
+		
+	 		  var params = "account="+encodeURIComponent(keyword);
+		 	  sendRequest("check_signup", params, displayResult, 'POST');
+		  
 	  } 
 	  
 	  else {
@@ -83,9 +91,11 @@ span{
 	   if(resultText==0){
 	    listView.innerHTML = "사용 할 수 있는 ID 입니다";
 	    listView.style.color = "blue";
+	    accountCheck = 1; //아이디 입력했음을 체크
 	   }else{
 	    listView.innerHTML = "이미 등록된 ID 입니다";
 	    listView.style.color = "red";
+	    accountCheck = 2; 
 	   }
 	  } else {
 	   alert("에러 발생: "+httpRequest.status);
@@ -93,14 +103,32 @@ span{
 	 }
 	}
 
+	function checkSubmit(){
+		var nameCheck = document.forms[0].name.value;
+		var univCheck = document.forms[0].univ.value;
+		
+		if(accountCheck=='2'){
+			alert('이미 존재하는 아이디 입니다.');
+			return false;
+		}
+		if(accountCheck=='0' || passwordCheck=='0' || nameCheck =='' || univCheck=='0'){
+			alert('회원가입 폼을 정확히 채워 주세요.');
+			return false;
+		}else{
+			return true;
+		}
+	   
+	    
+	  
+	}
 </script>
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
 <div class="wrapper">
-	<form action="signup" method="POST" name="signupform" id="signupform">
-	<h2 class="form-signin-heading">Please Signup</h2>
-		<input type="hidden" name="auth" value="1"/>
+	<form action="signup" method="POST" name="signupform" id="signupform" onsubmit="return checkSubmit()">
+		<h2 class="form-signin-heading">Please Signup</h2>
+		<input name="auth" id="auth" class="accountCheck" type="hidden" value='1'>
 		<div class="form-group" name="userId" id="userId">
 			<label for="idinput">아이디</label>
 			<input type="text" name="account" id="account" onkeydown="checkAccount()" class="form-control" placeholder="아이디">
@@ -120,6 +148,7 @@ span{
 			<div id="checkPwd">비밀번호와 똑같이 입력해주세요</div>
 
 		</div>
+		<!-- to do : 대학교도 DB에서 리스트 가져오도록 구현하깅 -->
 		<div class="form-group">
 			<label for="nameinput">학교</label>
 			<select name="univ"  class="form-control">
@@ -127,9 +156,13 @@ span{
    					<option value="2">서울대학교</option>
    			  </select>
 		</div>
-		<input type="submit" value="가입" class="btn btn-primary btn-block">
-</form>
-			
+		<input type="submit" value="join" id="join" class="btn btn-primary btn-block">
+	</form>		
+		<!-- 입력 여부 체크하기위한 hidden input -->
+	<div class="formCheck">
+        <input name="accountCheck" class="accountCheck" type="hidden" value='0'>
+        <input name="passwordCheck" class="passwordCheck" type="hidden" value='0'>
+    </div>
 </div> <!-- wrapper class close -->
 <jsp:include page="footer.jsp"></jsp:include>	
 	
