@@ -9,8 +9,8 @@
 		<!-- 로그인 ,welcome 페이지를 들어갈 때 admin혹은 user 권한이 있어야만 한다. -->
 		<!-- 그래서 login.html 를 접속했을 때 해당 권한을 가지고 있지 않은 유저라면 
 		 security 자체내에서 제공하는 로그인 폼이 나오면서 로그인을 하라고 함! -->
-		<security:intercept-url pattern="/login.html*" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
-		<security:intercept-url pattern="/welcome.html*" access="hasRole('ROLE_ADMIN')"/>
+		<security:form-login login-page="/signin_view"/>
+		<security:intercept-url pattern="/addcircle_view" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
 	</security:http>
 	
 	<security:authentication-manager>

@@ -132,18 +132,12 @@ public class CController {
 		return "addcircle_view";
 	}
 	
-	//시큐리티 로그인과 관련된 맵핑 함수!
+	//시큐리티 로그아웃과 관련된 맵핑 함수
 	
-	@RequestMapping(value="/login.html")
-	public String login(Model model){
-		System.out.println("여기에 오긴 올까?");
-		return "security/login";
-	}
-
-	@RequestMapping(value="/welcome.html")
-	public String welcome(Model model){
-		System.out.println("welcome 페이지란다?");
-		return "security/welcome";
+	@RequestMapping(value="/logout")
+	public String logout(Model model){
+		System.out.println("로그아웃하렴");
+		return "logout";
 	}
 	
 }
