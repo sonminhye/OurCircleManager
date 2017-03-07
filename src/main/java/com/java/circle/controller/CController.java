@@ -2,26 +2,22 @@ package com.java.circle.controller;
 
 import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
-import java.util.concurrent.Callable;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.java.circle.command.CCircleCheckCommand;
 import com.java.circle.command.CCommand;
 import com.java.circle.command.CListCommand;
 import com.java.circle.command.CSigninCheckCommand;
+import com.java.circle.command.CSignupCheckCommand;
 import com.java.circle.command.CSignupCommand;
 
 @Controller
@@ -82,6 +78,25 @@ public class CController {
 		
 		
 		command = new CSigninCheckCommand();
+		command.execute(model);
+		
+		
+		return model.asMap().get("check").toString();
+	}
+	
+	//회원가입할 떄 아이디 중복체크
+	@RequestMapping(value="/check_signup",method=RequestMethod.POST)
+	@ResponseBody
+	public String checkSignup(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
+		
+		System.out.println("checkSignup()");
+		HashMap<String,Object> resultMap = new HashMap<String,Object>();
+		
+		String account = request.getParameter("account");
+		//request 의 값을 model 에 추가해주기
+		model.addAttribute("account", param);
+		
+		command = new CSignupCheckCommand();
 		command.execute(model);
 		
 		
