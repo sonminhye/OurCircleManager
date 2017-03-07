@@ -80,7 +80,6 @@ public class CController {
 		//request 의 값을 model 에 추가해주기
 		model.addAttribute("param", param);
 		
-		
 		command = new CSigninCheckCommand();
 		command.execute(model);
 		
