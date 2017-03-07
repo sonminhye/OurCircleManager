@@ -87,14 +87,13 @@ public class CController {
 	//회원가입할 떄 아이디 중복체크
 	@RequestMapping(value="/check_signup",method=RequestMethod.POST)
 	@ResponseBody
-	public String checkSignup(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
+	public String checkSignup(HttpServletRequest request, Model model){
 		
 		System.out.println("checkSignup()");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
+
 		String account = request.getParameter("account");
 		//request 의 값을 model 에 추가해주기
-		model.addAttribute("account", param);
+		model.addAttribute("account", account);
 		
 		command = new CSignupCheckCommand();
 		command.execute(model);

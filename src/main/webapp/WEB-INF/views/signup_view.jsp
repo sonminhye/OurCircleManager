@@ -19,9 +19,10 @@ span{
 }
 </style>
 
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+
+<script type="text/javascript" src="js/httpRequest.js"></script>
 <script>
-	
+
 	var checkFirst = false;
 	var lastKeyword = '';
 	var loopSendKeyword = false;
@@ -59,7 +60,7 @@ span{
 	 if (keyword == '') {
 	  lastKeyword = '';
 	  document.getElementById('checkMsg').style.color = "black";
-	  document.getElementById('checkMsg').innerHTML = "아이디를 입력하세요ㅜㅜ.";
+	  document.getElementById('checkMsg').innerHTML = "아이디를 입력하세요.";
 	 } else if (keyword != lastKeyword) {
 	  lastKeyword = keyword;
 	  
