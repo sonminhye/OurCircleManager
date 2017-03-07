@@ -2,21 +2,25 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-<!-- 
-	<http auto-config="true">
-	  <intercept-url pattern="/**" access="ROLE_USER" />
-	 </http>
-	  
-	 <authentication-manager>
-	  <authentication-provider>
-	   <user-service>
-	    <user name="guest" authorities="ROLE_GUEST" password="guest"/>
-	    <user name="user" authorities="ROLE_USER" password="user"/>
-	   </user-service>
-	  </authentication-provider>
-	 </authentication-manager>
-	 -->
+	<security:http auto-config="true" use-expressions="true">
+		<!-- 로그인 ,welcome 페이지를 들어갈 때 admin혹은 user 권한이 있어야만 한다. -->
+		<!-- 그래서 login.html 를 접속했을 때 해당 권한을 가지고 있지 않은 유저라면 
+		 security 자체내에서 제공하는 로그인 폼이 나오면서 로그인을 하라고 함! -->
+		<security:intercept-url pattern="/login.html*" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
+		<security:intercept-url pattern="/welcome.html*" access="hasRole('ROLE_ADMIN')"/>
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider>
+			<security:user-service>
+				<!-- 임의설정 권한 별 아이디와 패스워드 -->
+				<security:user name="user" password="123" authorities="ROLE_USER"/>
+				<security:user name="admin" password="123" authorities="ROLE_ADMIN,ROLE_USER"/>
+			</security:user-service>
+		</security:authentication-provider>
+	</security:authentication-manager>
+
 </beans>
