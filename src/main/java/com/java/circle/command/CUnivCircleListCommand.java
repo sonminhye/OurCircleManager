@@ -8,18 +8,18 @@ import org.springframework.ui.Model;
 import com.java.circle.dao.CDao;
 import com.java.circle.dto.CDtoCircle;
 
-public class CCircleCheckCommand implements CCommand {
-
+public class CUnivCircleListCommand implements CCommand {
 	@Override
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
 		Map<String, Object> map = model.asMap(); 
 		String account = map.get("account").toString();
 		
-		CDao dao = new CDao();
-		ArrayList<CDtoCircle> dtos = dao.showMyCircle(account);
+		CDao dao= new CDao();
+		ArrayList<CDtoCircle>dtos =  dao.showUnivCircle(account);
 		
-		model.addAttribute("circleList", dtos);
+		model.addAttribute("list", dtos);
+		
 	}
 
 }
