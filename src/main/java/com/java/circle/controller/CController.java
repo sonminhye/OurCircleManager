@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,9 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.java.circle.command.CCircleCheckCommand;
 import com.java.circle.command.CCommand;
 import com.java.circle.command.CListCommand;
-import com.java.circle.command.CSigninCheckCommand;
 import com.java.circle.command.CSignupCheckCommand;
 import com.java.circle.command.CSignupCommand;
+import com.java.circle.command.CUnivCircleListCommand;
 
 @Controller
 public class CController {
@@ -72,24 +71,7 @@ public class CController {
 		
 		return "signin_view"; //가입하고 나면 로그인 화면으로
 	}
-	
-	//밑에꺼랑 맞춰서 이름을 check_signin 같이 바꾸면 좋을듯..?^_^
-	@RequestMapping(value="/check_signin",method=RequestMethod.POST)
-	@ResponseBody
-	public String checkSignin(@RequestBody HashMap<String,Object> param, HttpServletRequest request, Model model){
-		
-		System.out.println("checkSignin()");
-		HashMap<String,Object> resultMap = new HashMap<String,Object>();
-		
-		//request 의 값을 model 에 추가해주기
-		model.addAttribute("param", param);
-		
-		command = new CSigninCheckCommand();
-		command.execute(model);
-		
-		
-		return model.asMap().get("check").toString();
-	}
+
 	
 	//회원가입할 떄 아이디 중복체크
 	@RequestMapping(value="/check_signup",method=RequestMethod.POST)
@@ -135,16 +117,26 @@ public class CController {
 		command.execute(model);
 		
 		if(model.asMap().get("circleList").toString().equals("[]")) //동아리 정보가 없다는 뜻
-			return "nocircle_view";
+			return "redirect:nocircle_view";
 		else{
-			return "circle_view";
+			return "redirect:circle_view";
 		}
 	}
 	
 	
-	
+	//로그인 후 가입한 동아리가 없을 때 
 	@RequestMapping(value = "/nocircle_view", method = RequestMethod.GET)
 	public String goNoCircle(Model model){
+		System.out.println("noCircleView()");
+		
+		String account=null;
+		//현재 시큐리티로 로그인 된 정보를 가져온다.
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		account = authentication.getName();
+		model.addAttribute("account", account);
+		
+		command = new CUnivCircleListCommand();
+		command.execute(model);
 		
 		return "nocircle_view";
 	}

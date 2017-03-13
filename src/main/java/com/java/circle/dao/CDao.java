@@ -108,6 +108,7 @@ public class CDao {
 
 	}
 	
+	/*
 	public int checkSignin(String account, String password){
 
 		Connection conn = null;
@@ -149,6 +150,7 @@ public class CDao {
 		return 0;
 	}
 	
+	*/
 	
 	public int checkSignup(String account){
 
@@ -191,7 +193,9 @@ public class CDao {
 	}
 	
 	
-	public ArrayList<CDtoCircle> showCircle(String account){
+	//해당 account가 가입한 동아리 리스트
+	//*이름이 showUnivCircle과 구분될 수 있게 showMyCircle로수정했어용~
+	public ArrayList<CDtoCircle> showMyCircle(String account){
 		ArrayList<CDtoCircle> dtos= new ArrayList<CDtoCircle>();
 		
 		PreparedStatement pstmt = null;
@@ -207,17 +211,16 @@ public class CDao {
 			resultSet = pstmt.executeQuery();
 			
 			while(resultSet.next()){
-				
-				
-				
+
 				int circle_id = resultSet.getInt("circle_id");
 				String name = resultSet.getString("name");
 				int membercount = resultSet.getInt("membercount");
 				int univ_id = resultSet.getInt("univ_id");
+				int circle_category_id = resultSet.getInt("circle_category_id");
 				
 				System.out.println("동아리 이름:" + name);
 				
-				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id);
+				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id);
 				dtos.add(dto);  
 			}
 			
@@ -235,6 +238,56 @@ public class CDao {
 			}catch(Exception e2){
 				e2.printStackTrace();
 			}
+		}
+		return dtos;
+	}
+	
+	
+	//account로 학교id찾고 학교id로 동아리목록 찾기
+	public ArrayList<CDtoCircle> showUnivCircle(String account){
+		ArrayList<CDtoCircle> dtos= new ArrayList<CDtoCircle>();
+		
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet resultSet = null;
+		conn = connectionMaker.getConnection();
+		try {
+			
+			//account에 해당하는 univ_id를 찾고
+			//univ_id에 해당하는 학교에 소속된 동아리 목록을 가져옴
+			String query = "select * from cCircle where univ_id=(select univ_id from cUser where account=?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, account);
+			resultSet = pstmt.executeQuery();
+			
+			while(resultSet.next()){
+
+				int circle_id = resultSet.getInt("circle_id");
+				String name = resultSet.getString("name");
+				int membercount = resultSet.getInt("membercount");
+				int univ_id = resultSet.getInt("univ_id");
+				int circle_category_id = resultSet.getInt("circle_category_id");
+				
+				System.out.println("동아리 이름:" + name);
+				
+				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id);
+				dtos.add(dto);  
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstmt!=null)
+						pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
 		}
 		return dtos;
 	}
