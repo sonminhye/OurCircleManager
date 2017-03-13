@@ -109,21 +109,21 @@ public class CController {
 		return model.asMap().get("check").toString();
 	}
 	
+	//우선 로그인 여부를 이 때 검사하고, check_Circle 로 넘어간다.
 	@RequestMapping(value="/check_signin_ok")
 	public String check_SigninOk(HttpServletRequest request, Model model){
 		System.out.println("check_SignOk()");
 		return "redirect:/check_circle";
 	}
 	
-	//로그인이 되지 않았을 경우, 로그인 폼에서 값을 넘겨줘야 하니까 ? post 로넘기는 것 같다.
-	//로그인이 이미 된 경우, get 방식으로 넘어간다. 
+	//로그인이 되지 않았을 경우 post로, 로그인이 이미 된 경우 get 방식으로 넘어간다. 
 	//이 함수의 경우는 그 두 방식 모두 틀리지않고 완전 기능이 구현됐기 때문에 굳이 구분이 있을 필요가 있나 싶어서 method 를 우선 없애줬음...
-	//위의 함수도 마찬가지로 별다른 역할 차이가 없어서 없애줌...
+	//위의 check_SigninOk 함수도 마찬가지로 별다른 역할 차이가 없어서 없애줌...
 	@RequestMapping(value="/check_circle")
 	public String check_Circle(Model model){
 		
 		System.out.println("checkCircle()");
-		System.out.println("version:Post");
+		//System.out.println("version:Post");
 		
 		String account=null;
 		//현재 시큐리티로 로그인 된 정보를 가져온다.
@@ -159,20 +159,6 @@ public class CController {
 	@RequestMapping(value = "/addcircle_view", method = RequestMethod.GET)
 	public String goAddCircle(){
 		return "addcircle_view";
-	}
-	
-	//시큐리티 로그아웃과 관련된 맵핑 함수
-	
-	@RequestMapping(value="/logout")
-	public String logout(Model model){
-		System.out.println("로그아웃하렴");
-		return "logout";
-	}
-	
-	@RequestMapping(value="/fail")
-	public String failed(Model model){
-		System.out.println("로긘 실패");
-		return "fail";
 	}
 	
 }
