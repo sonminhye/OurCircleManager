@@ -203,15 +203,15 @@ form input[type="password"] {
 
 .side-bar ul .menu li  a:hover
 {
-    border-left:3px solid #ECECEA;    
+    border-left:3px solid #ececec;    
     padding-left:17px;
 }
 
 .side-bar ul .menu li  a.active
 {
     padding-left:17px;
-    background:#eaa65c;
-    border-left:3px solid #ECECEA;
+    background:#e8a45b;
+    border-left:3px solid #ececec;
 }
 
 .side-bar ul .menu li  a.active:before {
@@ -220,9 +220,9 @@ form input[type="password"] {
    width: 0;
    height: 0;
    border-top: 20px solid transparent;
-    border-bottom: 20px solid transparent;
+   border-bottom: 20px solid transparent;
 	
-	border-left: 7px solid #eaa65c;
+	border-left: 7px solid #e8a45b;
     margin-top: -10px;
     margin-left: 180px;
 }

@@ -9,6 +9,10 @@ $(document).ready(function(){
          $(".circle-wrapper").toggleClass("active");
     });
     
+    $(".menu li").click(function(event){
+    	$("a").removeClass("active");
+    	$(this).children().toggleClass("active");
+    });
     
 });
 </script>
@@ -17,7 +21,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div class="circle-container">
-	<div class="row">
+	<div class="circle-row">
 		<div class="circle-wrapper">
     	    <div class="side-bar">
                 <ul>
@@ -41,16 +45,7 @@ $(document).ready(function(){
                     
                 </ul>
     	    </div>   
-            <div class="circle-content">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">Panel heading without title</div>
-                        <div class="panel-body">
-                            Panel content
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
 		</div>
 	</div>
 </div>

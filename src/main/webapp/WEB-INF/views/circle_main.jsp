@@ -8,8 +8,19 @@
 </head>
 <body>
 <jsp:include page="header.jsp"></jsp:include>
+
 <div class="main">
 <jsp:include page="sidebar.jsp"></jsp:include>
+<div class="circle-content">
+                <div class="col-md-12">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">Panel heading without title</div>
+                        <div class="panel-body">
+                            Panel content
+                        </div>
+                    </div>
+                </div>
+            </div>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
