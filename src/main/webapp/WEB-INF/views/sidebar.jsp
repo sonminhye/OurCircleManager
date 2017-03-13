@@ -3,13 +3,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+<script>
+$(document).ready(function(){
+    $(".push_menu").click(function(){
+         $(".circle-wrapper").toggleClass("active");
+    });
+    
+    
+});
+</script>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+<div class="circle-container">
 	<div class="row">
-		<div class="wrapper">
+		<div class="circle-wrapper">
     	    <div class="side-bar">
                 <ul>
                     <li class="menu-head">
@@ -32,7 +41,7 @@
                     
                 </ul>
     	    </div>   
-            <div class="content">
+            <div class="circle-content">
                 <div class="col-md-12">
                     <div class="panel panel-default">
                         <div class="panel-heading">Panel heading without title</div>

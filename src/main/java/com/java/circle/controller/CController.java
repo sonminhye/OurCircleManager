@@ -129,6 +129,7 @@ public class CController {
 		//현재 시큐리티로 로그인 된 정보를 가져온다.
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		account = authentication.getName();
+		
 		model.addAttribute("account", account);
 	
 		command = new CCircleCheckCommand();
