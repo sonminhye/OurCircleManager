@@ -57,17 +57,18 @@ $(function(){
 <jsp:include page="header.jsp"></jsp:include>
   <div class="wrapper">
     <form class="form-signin" method="post" action="j_spring_security_check">       
-      <h2 class="form-signin-heading">Please login</h2>
+      <h2 class="form-signin-heading">로그인하기</h2>
         <c:if test="${not empty param.fail}">
-			<font color="red"><p>Your login attempt was not successful, try again</p></font>	
+			<font color="red"><p>로그인에 실패하였습니다.</p></font>	
 		</c:if>
 		
-      <input type="text" class="form-control" id="account" name="account" placeholder="Email Address" required="" autofocus="" />
-      <input type="password" class="form-control" id="password" name="password" placeholder="Password" required=""/>      
+      <input type="text" class="form-control" id="account" name="account" placeholder="아이디" required="" autofocus="" />
+      <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호" required=""/>      
       <label class="checkbox">
         <input type="checkbox" value="remember-me" id="rememberMe" name="rememberMe"> Remember me
       </label>
       <button id="button_submit" class="btn btn-lg btn-primary btn-block" type="submit">Login</button>   
+      <a href="signup_view">아직 회원이 아니신가요?</a>
     </form>
   </div>
   

@@ -111,15 +111,18 @@ span{
 			alert('이미 존재하는 아이디 입니다.');
 			return false;
 		}
-		if(accountCheck=='0' || passwordCheck=='0' || nameCheck =='' || univCheck=='0'){
+		if(accountCheck=='0' || passwordCheck=='0' || nameCheck ==''){
 			alert('회원가입 폼을 정확히 채워 주세요.');
+			return false;
+		}
+		if(univCheck=='0'){
+			alert('학교를 선택해 주세요.');
 			return false;
 		}else{
 			return true;
 		}
 	   
-	    
-	  
+
 	}
 </script>
 </head>
@@ -127,7 +130,7 @@ span{
 <jsp:include page="header.jsp"></jsp:include>
 <div class="wrapper">
 	<form action="signup" method="POST" name="signupform" id="signupform" onsubmit="return checkSubmit()">
-		<h2 class="form-signin-heading">Please Signup</h2>
+		<h2 class="form-signin-heading">회원가입하기</h2>
 		<input name="auth" id="auth" class="accountCheck" type="hidden" value='1'>
 		<div class="form-group" name="userId" id="userId">
 			<label for="idinput">아이디</label>
@@ -152,6 +155,7 @@ span{
 		<div class="form-group">
 			<label for="nameinput">학교</label>
 			<select name="univ"  class="form-control">
+					<option value="0">-학교선택-</option>
    					<option value="1">동국대학교</option>
    					<option value="2">서울대학교</option>
    			  </select>
