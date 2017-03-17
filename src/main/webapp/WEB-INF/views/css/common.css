@@ -30,6 +30,16 @@ body {
 
 }
 
+.text-container{
+	background-color: #fff;
+	padding: 15px 35px 45px;
+	margin-top: 70px;
+ 	margin-bottom: 70px;
+ 	margin-left : 70px;
+ 	margin-right : 70px;
+ 	border-radius: 5px;
+}
+
 .text-vertical-center {
     display: table-cell;
     text-align: center;
@@ -91,6 +101,22 @@ form input[type="password"] {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+/* 동아리 이름 출력할 때 링크 */
+/* 왜클래스지정이안먹지??*/
+
+a:link{
+    text-decoration: none;
+    color : #000000;
+}
+
+a:hover {
+    text-decoration: none;
+    color : #00CED1;
+}
+
+
+
 
 /* Tabs */
 
