@@ -6,14 +6,21 @@ public class CDtoCircle {
 	int membercount;
 	int univ_id;
 	int circle_category_id;
+	String intro;
+	String image;
 	
-	public CDtoCircle(int circle_id, String name, int membercount, int univ_id, int circle_category_id) {
+	
+
+	public CDtoCircle(int circle_id, String name, int membercount, int univ_id, int circle_category_id, String intro,
+			String image) {
 		super();
 		this.circle_id = circle_id;
 		this.name = name;
 		this.membercount = membercount;
 		this.univ_id = univ_id;
 		this.circle_category_id = circle_category_id;
+		this.intro = intro;
+		this.image = image;
 	}
 	
 	public int getCircle_id() {
@@ -47,4 +54,19 @@ public class CDtoCircle {
 	public int getCircle_category_id(){
 		return circle_category_id;
 	}
+	public String getIntro() {
+		return intro;
+	}
+
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
+	}
+	
+	
 }

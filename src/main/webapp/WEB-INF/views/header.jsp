@@ -12,7 +12,10 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/bootstrap.min.js"></script>  
 <link rel="stylesheet" href="css/header.css">
-<link rel="stylesheet" href="css/common.css" >
+<link rel="stylesheet" href="css/common.css?ver=1" >
+<!-- 변경내용이 바로 적용될 수 있도록 ?ver=1 을 붙여줌.
+     이렇게 하면 캐시에 저장된 내용을 불러오지 않고 매번 새롭게 불러옴-->
+     
 </head> 
 <body>
     <div>

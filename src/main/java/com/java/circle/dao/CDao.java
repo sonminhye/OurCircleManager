@@ -217,10 +217,12 @@ public class CDao {
 				int membercount = resultSet.getInt("membercount");
 				int univ_id = resultSet.getInt("univ_id");
 				int circle_category_id = resultSet.getInt("circle_category_id");
+				String intro = resultSet.getString("intro");
+				String image = resultSet.getString("image");
 				
 				System.out.println("동아리 이름:" + name);
 				
-				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id);
+				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id,intro,image);
 				dtos.add(dto);  
 			}
 			
@@ -242,7 +244,7 @@ public class CDao {
 		return dtos;
 	}
 	
-	
+	//해당 account가 속한 학교에 있는 동아리 목록
 	//account로 학교id찾고 학교id로 동아리목록 찾기
 	public ArrayList<CDtoCircle> showUnivCircle(String account){
 		ArrayList<CDtoCircle> dtos= new ArrayList<CDtoCircle>();
@@ -267,11 +269,13 @@ public class CDao {
 				int membercount = resultSet.getInt("membercount");
 				int univ_id = resultSet.getInt("univ_id");
 				int circle_category_id = resultSet.getInt("circle_category_id");
+				String intro = resultSet.getString("intro");
+				String image = resultSet.getString("image");
 				
 				System.out.println("동아리 이름:" + name);
 				
-				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id);
-				dtos.add(dto);  
+				CDtoCircle dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id,intro,image);
+				dtos.add(dto);   
 			}
 			
 		} catch (SQLException e) {
