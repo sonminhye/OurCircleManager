@@ -69,7 +69,7 @@ public class CController {
 		command = new CSignupCommand();
 		command.execute(model);
 		
-		return "signin_view"; //가입하고 나면 로그인 화면으로
+		return "signup_welcome"; //가입하고 나면 로그인 화면으로 -> 웰컴페이지로 가게 수정
 	}
 
 	
