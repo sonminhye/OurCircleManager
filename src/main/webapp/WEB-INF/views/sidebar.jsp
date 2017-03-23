@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>      
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,29 +21,38 @@ $(document).ready(function(){
 <title>Insert title here</title>
 </head>
 <body>
+
 <div class="circle-container">
 	<div class="circle-row">
 		<div class="circle-wrapper">
     	    <div class="side-bar">
                 <ul>
-                    <li class="menu-head">
-                        MOMENT <a href="#" class="push_menu"><span class="glyphicon glyphicon-align-justify pull-right"></span></a>
-                    </li>
-                    <div class="menu">
-                        <li>
-                            <a href="#">동아리 소개 <span class="glyphicon glyphicon-dashboard pull-right"></span></a>
-                        </li>
-                        <li>
-                            <a href="#" class="active">행사관리<span class="glyphicon glyphicon-heart pull-right"></span></a>
-                        </li>
-                        <li>
-                            <a href="#">방명록 <span class="glyphicon glyphicon-star pull-right"></span></a>
-                        </li>
-                        <li>
-                            <a href="#">관리하기 <span class="glyphicon glyphicon-cog pull-right"></span></a>
-                        </li>
-                    </div>
-                    
+	                    <li class="menu-head">
+	                        MOMENT <a href="#" class="push_menu"><span class="glyphicon glyphicon-align-justify pull-right"></span></a>
+	                    </li>
+						<!-- 변수 auth 를 생성해 유저의 권한을 알려줌 -->
+						
+						<c:set var="auth" value="${myAuthInThisCircle.auth}"></c:set>
+						
+						<c:out value="${auth }"></c:out>
+	                    <div class="menu">	                      	
+	                        <li>
+	                            <a href="#" class="active">동아리 소개 <span class="glyphicon glyphicon-dashboard pull-right"></span></a>
+	                        </li>
+	                       	<c:if test="${auth=='ADMIN' || auth=='MEMBER' }">
+		                        <li>
+		                            <a href="#">행사목록<span class="glyphicon glyphicon-heart pull-right"></span></a>
+		                        </li>
+	                        </c:if>
+	                        <li>
+	                            <a href="#">방명록 <span class="glyphicon glyphicon-star pull-right"></span></a>
+	                        </li>
+	                       	<c:if test="${auth == 'ADMIN' }">
+		                        <li>
+		                            <a href="#">관리하기 <span class="glyphicon glyphicon-cog pull-right"></span></a>
+		                        </li>
+	                        </c:if>
+	                    </div>
                 </ul>
     	    </div>   
             

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,14 +15,17 @@
 <div class="circle-content">
                 <div class="col-md-12">
                     <div class="panel panel-default">
-                        <div class="panel-heading">Panel heading without title</div>
+                    	<div>가입하기</div>
+                        <div class="panel-heading">${dto.name }</div>
                         <div class="panel-body">
-                            Panel content
+                            ${dto.intro }
+                            <img alt="이미지 없음" src="img/circle/${dto.image }">
                         </div>
                     </div>
                 </div>
             </div>
 </div>
+
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

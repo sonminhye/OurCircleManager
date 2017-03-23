@@ -116,6 +116,8 @@ public class CController {
 		command = new CCircleCheckCommand();
 		command.execute(model);
 		
+		System.out.println(model.asMap().get("circleList").toString());
+		
 		if(model.asMap().get("circleList").toString().equals("[]")) //동아리 정보가 없다는 뜻
 			return "redirect:nocircle_view";
 		else{
