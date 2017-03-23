@@ -32,7 +32,8 @@ public class CAddcircleCommand implements CCommand {
 		
 		CDao dao = new CDao();
 		
-		dao.addCircle(param);
+		int circle_id = dao.addCircle(param);
+		model.addAttribute("circle_id", circle_id);
 		
 	}
 

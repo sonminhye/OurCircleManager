@@ -375,11 +375,12 @@ public class CDao {
 	}
 	
 	
-	//동아리 추가
-	public void addCircle(HashMap<String,String> param){
-		
+	//새로운 동아리 추가
+	public int addCircle(HashMap<String,String> param){
+		int circle_id = 0;
 		Connection conn = null;
 		PreparedStatement pstm = null;
+		PreparedStatement pstm2 = null;
 		conn = connectionMaker.getConnection();
 		try {
 
@@ -390,10 +391,17 @@ public class CDao {
 			pstm.setInt(3, Integer.parseInt(param.get("circle_category_id").toString()));
 			pstm.setString(4, param.get("intro").toString());
 			pstm.setString(5, param.get("image").toString());
-		
+			
 			int n = pstm.executeUpdate();
 			
+			String query2 = "select LAST_INSERT_ID() as circle_id";
+			pstm2 = conn.prepareStatement(query2);
+			ResultSet rs = pstm2.executeQuery();
+			rs.next();
+			circle_id = rs.getInt("circle_id");
+			
 			System.out.println("쿼리결과:" + n);
+			System.out.println("circle_id:" + circle_id);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -411,6 +419,7 @@ public class CDao {
 				connectionMaker.closeConnection(conn);
 		}
 
+		return circle_id;
 	}
 	
 }

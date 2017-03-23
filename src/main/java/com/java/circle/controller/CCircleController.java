@@ -51,7 +51,7 @@ public class CCircleController {
 	}
 	
 	
-	@RequestMapping(value = "/addcircle", method = RequestMethod.POST)
+	@RequestMapping(value ="/addcircle", method = RequestMethod.POST)
 	public String doSignup(HttpServletRequest request, Model model){
 		
 		System.out.println("doAddCircle()");
@@ -60,9 +60,13 @@ public class CCircleController {
 		command = new CAddcircleCommand();
 		command.execute(model);
 		//to do:동아리 만듦과 동시에 해당 유저도 가입되게 해야함(cUser_Circle테이블에 추가해야함)
+		String uri = "redirect:/circle_main?circle_id=" + model.asMap().get("circle_id").toString();
+		System.out.println(uri);
 		
-		return "circle_main"; //to do:해당 동아리의 메인으로 가게 해야함
+		return uri; //to do:해당 동아리의 메인으로 가게 
+	
 	}
+	
 	
 	@RequestMapping(value = "/circle_main", method = RequestMethod.GET)
 	public String showMain(){
