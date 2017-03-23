@@ -19,7 +19,7 @@
                         <div class="panel-heading">${dto.name }</div>
                         <div class="panel-body">
                             ${dto.intro }
-                            <img alt="이미지 없음" src="${dto.image }">
+                            <img alt="이미지 없음" src="img/circle/${dto.image }">
                         </div>
                     </div>
                 </div>
