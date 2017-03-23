@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 
 import com.java.circle.dto.CDto;
 import com.java.circle.dto.CDtoCircle;
+import com.java.circle.dto.CDtoUserCircle;
 
 public class CDao {
 
@@ -295,5 +296,110 @@ public class CDao {
 		}
 		return dtos;
 	}
+	
+	public CDtoCircle showCircle(String circleid){
+		
+		CDtoCircle dto = null;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet resultSet = null;
+		conn = connectionMaker.getConnection();
+		
+		try {
+			
+			//account에 해당하는 univ_id를 찾고
+			//univ_id에 해당하는 학교에 소속된 동아리 목록을 가져옴
+			String query = "select * from cCircle where circle_id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, circleid);
+			resultSet = pstmt.executeQuery();
+			
+			while(resultSet.next()){
+				
+				int circle_id = resultSet.getInt("circle_id");
+				String name = resultSet.getString("name");
+				int membercount = resultSet.getInt("membercount");
+				int univ_id = resultSet.getInt("univ_id");
+				int circle_category_id = resultSet.getInt("circle_category_id");
+				String intro = resultSet.getString("intro");
+				String image = resultSet.getString("image");
+				
+				System.out.println("동아리 이름:" + name);
+				
+				dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id,intro,image);
+				 
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstmt!=null)
+						pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+		
+		
+		return dto;
+	
+	}
+	
+	public CDtoUserCircle showMyAuthInThisCircle(String account_, String circleid){
+		
+		CDtoUserCircle dto=null;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet resultSet = null;
+		conn = connectionMaker.getConnection();
+		
+		try {
+			
+			//account에 해당하는 univ_id를 찾고
+			//univ_id에 해당하는 학교에 소속된 동아리 목록을 가져옴
+			String query = "select * from cUser_Circle where account=? and circle_id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, account_);
+			pstmt.setString(2, circleid);
+			resultSet = pstmt.executeQuery();
+			
+			while(resultSet.next()){
+				
+				int circle_id = resultSet.getInt("circle_id");
+				String account = resultSet.getString("account");
+				String auth = resultSet.getString("auth");
+				
+				
+				dto = new CDtoUserCircle(circle_id, account, auth);
+				
+			}
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstmt!=null)
+						pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+		
+		
+		return dto;
+	}
+	
 	
 }
