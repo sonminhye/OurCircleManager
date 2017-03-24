@@ -298,198 +298,193 @@ public class CDao {
 		return dtos;
 	}
 	
+
+	//해당 account가 속한 학교 정보
+	public CDtoUniv showUnivInfo(String account){
+		CDtoUniv dto = null;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet resultSet = null;
+		conn = connectionMaker.getConnection();
+		try {
+			
+			//account에 해당하는 univ 찾음
+			String query = "select * from cUniv where univ_id=(select univ_id from cUser where account=?)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, account);
+			resultSet = pstmt.executeQuery();
+			
+			while(resultSet.next()){
+			int univ_id = resultSet.getInt("univ_id");
+			String name = resultSet.getString("name");
+	
+			System.out.println("학교 이름:" + name);
+			
+			dto = new CDtoUniv(univ_id, name);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstmt!=null)
+						pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+		return dto;
+	}
 	
 	
+	//동아리만들 때 이름 중복체크
+	public int checkAddcircle(String name){
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		conn = connectionMaker.getConnection();
+		try {
+
+			//row count 라는 열 이름으로 해당 쿼리의 행 개수를 가져온다.
+			String query = "select count(*) as rowcount from cCircle where name=?";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, name);
+			
+			//쿼리를 실행하고
+			ResultSet rs = pstm.executeQuery();
+			
+			//개수를 가져온다
+			rs.next();
+			int count = rs.getInt("rowcount");
+			System.out.println("개수 : " + count);
+			
+			return count;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstm!=null)
+						pstm.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+		return 0;
+	}
 	
 	
-	
+	//새로운 동아리 추가
+	public int addCircle(HashMap<String,String> param){
+		int circle_id = 0;
+		Connection conn = null;
+		PreparedStatement pstm = null;
+		PreparedStatement pstm2 = null;
+		conn = connectionMaker.getConnection();
+		try {
+
+			String query = "insert into cCircle (name, univ_id, circle_category_id, intro, image) values (?,?,?,?,?)";
+			pstm = conn.prepareStatement(query);
+			pstm.setString(1, param.get("name").toString());
+			pstm.setInt(2, Integer.parseInt(param.get("univ_id").toString()));
+			pstm.setInt(3, Integer.parseInt(param.get("circle_category_id").toString()));
+			pstm.setString(4, param.get("intro").toString());
+			pstm.setString(5, param.get("image").toString());
+			
+			int n = pstm.executeUpdate();
+			
+			String query2 = "select LAST_INSERT_ID() as circle_id";
+			pstm2 = conn.prepareStatement(query2);
+			ResultSet rs = pstm2.executeQuery();
+			rs.next();
+			circle_id = rs.getInt("circle_id");
+			
+			System.out.println("쿼리결과:" + n);
+			System.out.println("circle_id:" + circle_id);
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstm!=null)
+						pstm.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
+				connectionMaker.closeConnection(conn);
+		}
+
+		return circle_id;
+	}
+
+	public CDtoCircle showCircle(String circleid){
 		
-		//해당 account가 속한 학교 정보
-		public CDtoUniv showUnivInfo(String account){
-			CDtoUniv dto = null;
-			PreparedStatement pstmt = null;
-			Connection conn = null;
-			ResultSet resultSet = null;
-			conn = connectionMaker.getConnection();
-			try {
+		CDtoCircle dto = null;
+		PreparedStatement pstmt = null;
+		Connection conn = null;
+		ResultSet resultSet = null;
+		conn = connectionMaker.getConnection();
+		
+		try {
+			
+			//account에 해당하는 univ_id를 찾고
+			//univ_id에 해당하는 학교에 소속된 동아리 목록을 가져옴
+			String query = "select * from cCircle where circle_id=?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, circleid);
+			resultSet = pstmt.executeQuery();
+			
+			while(resultSet.next()){
 				
-				//account에 해당하는 univ 찾음
-				String query = "select * from cUniv where univ_id=(select univ_id from cUser where account=?)";
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, account);
-				resultSet = pstmt.executeQuery();
-				
-				while(resultSet.next()){
-				int univ_id = resultSet.getInt("univ_id");
+				int circle_id = resultSet.getInt("circle_id");
 				String name = resultSet.getString("name");
-		
-				System.out.println("학교 이름:" + name);
+				int membercount = resultSet.getInt("membercount");
+				int univ_id = resultSet.getInt("univ_id");
+				int circle_category_id = resultSet.getInt("circle_category_id");
+				String intro = resultSet.getString("intro");
+				String image = resultSet.getString("image");
 				
-				dto = new CDtoUniv(univ_id, name);
+				System.out.println("동아리 이름:" + name);
+				
+				dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id,intro,image);
+				 
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			
+				try {
+					if(pstmt!=null)
+						pstmt.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-				
-					try {
-						if(pstmt!=null)
-							pstmt.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-					connectionMaker.closeConnection(conn);
-			}
-			return dto;
+			
+				connectionMaker.closeConnection(conn);
 		}
 		
 		
-		//동아리만들 때 이름 중복체크
-		public int checkAddcircle(String name){
-			Connection conn = null;
-			PreparedStatement pstm = null;
-			conn = connectionMaker.getConnection();
-			try {
-
-				//row count 라는 열 이름으로 해당 쿼리의 행 개수를 가져온다.
-				String query = "select count(*) as rowcount from cCircle where name=?";
-				pstm = conn.prepareStatement(query);
-				pstm.setString(1, name);
-				
-				//쿼리를 실행하고
-				ResultSet rs = pstm.executeQuery();
-				
-				//개수를 가져온다
-				rs.next();
-				int count = rs.getInt("rowcount");
-				System.out.println("개수 : " + count);
-				
-				return count;
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-				
-					try {
-						if(pstm!=null)
-							pstm.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-					connectionMaker.closeConnection(conn);
-			}
-			return 0;
-		}
-		
-		
-		//새로운 동아리 추가
-		public int addCircle(HashMap<String,String> param){
-			int circle_id = 0;
-			Connection conn = null;
-			PreparedStatement pstm = null;
-			PreparedStatement pstm2 = null;
-			conn = connectionMaker.getConnection();
-			try {
-
-				String query = "insert into cCircle (name, univ_id, circle_category_id, intro, image) values (?,?,?,?,?)";
-				pstm = conn.prepareStatement(query);
-				pstm.setString(1, param.get("name").toString());
-				pstm.setInt(2, Integer.parseInt(param.get("univ_id").toString()));
-				pstm.setInt(3, Integer.parseInt(param.get("circle_category_id").toString()));
-				pstm.setString(4, param.get("intro").toString());
-				pstm.setString(5, param.get("image").toString());
-				
-				int n = pstm.executeUpdate();
-				
-				String query2 = "select LAST_INSERT_ID() as circle_id";
-				pstm2 = conn.prepareStatement(query2);
-				ResultSet rs = pstm2.executeQuery();
-				rs.next();
-				circle_id = rs.getInt("circle_id");
-				
-				System.out.println("쿼리결과:" + n);
-				System.out.println("circle_id:" + circle_id);
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-				
-					try {
-						if(pstm!=null)
-							pstm.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-					connectionMaker.closeConnection(conn);
-			}
-
-			return circle_id;
-		}
+		return dto;
 	
-		public CDtoCircle showCircle(String circleid){
-			
-			CDtoCircle dto = null;
-			PreparedStatement pstmt = null;
-			Connection conn = null;
-			ResultSet resultSet = null;
-			conn = connectionMaker.getConnection();
-			
-			try {
-				
-				//account에 해당하는 univ_id를 찾고
-				//univ_id에 해당하는 학교에 소속된 동아리 목록을 가져옴
-				String query = "select * from cCircle where circle_id=?";
-				pstmt = conn.prepareStatement(query);
-				pstmt.setString(1, circleid);
-				resultSet = pstmt.executeQuery();
-				
-				while(resultSet.next()){
-					
-					int circle_id = resultSet.getInt("circle_id");
-					String name = resultSet.getString("name");
-					int membercount = resultSet.getInt("membercount");
-					int univ_id = resultSet.getInt("univ_id");
-					int circle_category_id = resultSet.getInt("circle_category_id");
-					String intro = resultSet.getString("intro");
-					String image = resultSet.getString("image");
-					
-					System.out.println("동아리 이름:" + name);
-					
-					dto = new CDtoCircle(circle_id,name,membercount,univ_id,circle_category_id,intro,image);
-					 
-				}
-				
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}finally{
-				
-					try {
-						if(pstmt!=null)
-							pstmt.close();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
-					connectionMaker.closeConnection(conn);
-			}
-			
-			
-			return dto;
-		
-		}
-		
-		public CDtoUserCircle showMyAuthInThisCircle(String account_, String circleid){
+	}
+	
+	public CDtoUserCircle showMyAuthInThisCircle(String account_, String circleid){
 			
 			CDtoUserCircle dto=null;
 			PreparedStatement pstmt = null;

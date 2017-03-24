@@ -17,14 +17,16 @@
 
     <div id="top">
     
-     <!-- 임시버튼 -->    
-    <a class="btn btn-info" href="addcircle_view">동아리 만들기<span class="glyphicon glyphicon-chevron-right"></span></a>
-     <!--  -->  
+
        
         <div class="text-container">
             <h2>우리학교엔 이런 동아리들이 있어요 !</h2>
             <br>
-		    
+            
+		    <!-- 임시버튼 -->  
+		    <h4>내가 찾는 동아리가 없나요?</h4>  
+   			<a class="btn btn-info" href="addcircle_view">동아리 만들기<span class="glyphicon glyphicon-chevron-right"></span></a>
+    		
 		    <!-- 전체 카테고리별로 돌아가면서 출력 -->
 		    <c:forEach items="${circle_category}" var="category" varStatus="status">
 		    

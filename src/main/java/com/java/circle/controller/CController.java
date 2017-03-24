@@ -25,6 +25,9 @@ public class CController {
 	CCommand command = null;
 	Model myModel = null;
 	
+	@Autowired
+	private SqlSession sqlSession;
+	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String showMain(){
 		return "main";
@@ -34,7 +37,7 @@ public class CController {
 	public String showSignin(){		
 		return "signin_view";
 	}
-	
+	''
 	@RequestMapping(value = "/signin_view", method = RequestMethod.POST)
 	public String showSigninPost(){		
 		System.out.println("여기는 signin post 버전");
@@ -51,10 +54,12 @@ public class CController {
 	public String list(Model model) {
 		System.out.println("list()");
 		
-		command = new CListCommand();
-		command.execute(model);
-		
-		System.out.println(model.asMap().get("list").toString());
+		IDao dao = sqlSession.getMapper(IDao.class);
+		model.addAttribute("list", dao.showList());
+//		command = new CListCommand();
+//		command.execute(model);
+//		
+//		System.out.println(model.asMap().get("list").toString());
 		return "user_list";
 	}
 	//
