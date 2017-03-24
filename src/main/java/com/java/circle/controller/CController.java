@@ -4,6 +4,8 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -19,6 +21,7 @@ import com.java.circle.command.CListCommand;
 import com.java.circle.command.CSignupCheckCommand;
 import com.java.circle.command.CSignupCommand;
 import com.java.circle.command.CUnivCircleListCommand;
+import com.java.circle.dao.IDao;
 
 @Controller
 public class CController {
@@ -37,7 +40,7 @@ public class CController {
 	public String showSignin(){		
 		return "signin_view";
 	}
-	''
+
 	@RequestMapping(value = "/signin_view", method = RequestMethod.POST)
 	public String showSigninPost(){		
 		System.out.println("여기는 signin post 버전");

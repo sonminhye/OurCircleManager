@@ -25,6 +25,7 @@
 			/WEB-INF/spring/root-context.xml
 			/WEB-INF/spring/appServlet/datasource-context.xml
 			/WEB-INF/spring/appServlet/security-context.xml
+			/WEB-INF/spring/appServlet/context-mapper.xml
 		</param-value>
 	</context-param>
 	

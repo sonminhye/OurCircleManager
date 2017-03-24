@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE configuration
-  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
   
- 
+  
 <mapper namespace="com.java.circle.dao.IDao">
 	<select id="showList" resultType="com.java.circle.dto.CDto">
 		SELECT * FROM cUser ORDER BY USER_ID DESC

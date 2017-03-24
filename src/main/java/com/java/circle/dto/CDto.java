@@ -8,6 +8,10 @@ public class CDto {
 	String name;
 	int auth_id;
 	int univ_id;
+	
+	public CDto(){
+		
+	}
 
 	public CDto(int user_id, String account, String password, String name, int auth_id, int univ_id) {
 		super();

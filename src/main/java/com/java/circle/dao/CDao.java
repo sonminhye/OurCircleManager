@@ -13,14 +13,25 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+
 import com.java.circle.dto.CDto;
 import com.java.circle.dto.CDtoCircle;
 import com.java.circle.dto.CDtoUniv;
 import com.java.circle.dto.CDtoUserCircle;
 
-public class CDao {
+public class CDao implements IDao{
 
 	ConnectionMaker connectionMaker;
+	
+	JdbcTemplate template;
+	
+	@Autowired
+	public void setTemplate(JdbcTemplate template) {
+		this.template = template;
+	}
+	
 	
 	public CDao(){
 		connectionMaker = new ConnectionMaker();
