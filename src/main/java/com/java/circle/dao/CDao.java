@@ -25,13 +25,7 @@ public class CDao implements IDao{
 
 	ConnectionMaker connectionMaker;
 	
-	JdbcTemplate template;
-	
-	@Autowired
-	public void setTemplate(JdbcTemplate template) {
-		this.template = template;
-	}
-	
+
 	
 	public CDao(){
 		connectionMaker = new ConnectionMaker();
