@@ -24,6 +24,7 @@
 				<config>src/main/webapp/WEB-INF/spring/appServlet/context-mapper.xml</config>
 				<config>src/main/webapp/WEB-INF/spring/appServlet/datasource-context.xml</config>
 				<config>src/main/webapp/WEB-INF/spring/appServlet/security-context.xml</config>
+				<config>src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml</config>
 			</configs>
 			<profiles>
 			</profiles>
