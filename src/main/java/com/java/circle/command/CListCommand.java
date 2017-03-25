@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.ui.Model;
 
 import com.java.circle.dao.CDao;
-import com.java.circle.dto.CDto;
+import com.java.circle.dto.CDtoUser;
 
 public class CListCommand implements CCommand {
 
@@ -14,7 +14,7 @@ public class CListCommand implements CCommand {
 		// TODO Auto-generated method stub
 		
 		CDao dao= new CDao();
-		ArrayList<CDto>dtos =  dao.showList();
+		ArrayList<CDtoUser>dtos =  dao.showList();
 		
 		model.addAttribute("list", dtos);
 		

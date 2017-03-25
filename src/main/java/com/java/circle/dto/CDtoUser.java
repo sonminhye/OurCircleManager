@@ -1,6 +1,6 @@
 package com.java.circle.dto;
 
-public class CDto {
+public class CDtoUser {
 	
 	int user_id;
 	String account;
@@ -9,11 +9,11 @@ public class CDto {
 	int auth_id;
 	int univ_id;
 	
-	public CDto(){
+	public CDtoUser(){
 		
 	}
 
-	public CDto(int user_id, String account, String password, String name, int auth_id, int univ_id) {
+	public CDtoUser(int user_id, String account, String password, String name, int auth_id, int univ_id) {
 		super();
 		this.user_id = user_id;
 		this.account = account;

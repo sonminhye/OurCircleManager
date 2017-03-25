@@ -33,7 +33,7 @@ public class CSignupCommand implements CCommand {
 		
 		CDao dao = new CDao();
 		
-		dao.signup(param);
+		dao.doSignup(param);
 		
 	}
 

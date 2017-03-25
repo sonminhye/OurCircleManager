@@ -16,12 +16,12 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.java.circle.dto.CDto;
+import com.java.circle.dto.CDtoUser;
 import com.java.circle.dto.CDtoCircle;
 import com.java.circle.dto.CDtoUniv;
 import com.java.circle.dto.CDtoUserCircle;
 
-public class CDao implements IDao{
+public class CDao{
 
 	ConnectionMaker connectionMaker;
 	
@@ -31,8 +31,8 @@ public class CDao implements IDao{
 		connectionMaker = new ConnectionMaker();
 	}
 	
-	public ArrayList<CDto> showList(){
-		ArrayList<CDto> dtos= new ArrayList<CDto>();
+	public ArrayList<CDtoUser> showList(){
+		ArrayList<CDtoUser> dtos= new ArrayList<CDtoUser>();
 		
 		PreparedStatement pstmt = null;
 		Connection conn = null;
@@ -56,7 +56,7 @@ public class CDao implements IDao{
 
 				int univ_id = resultSet.getInt("univ_id");
 
-				CDto dto = new CDto(user_id, account, password, name, auth_id, univ_id);
+				CDtoUser dto = new CDtoUser(user_id, account, password, name, auth_id, univ_id);
 				dtos.add(dto);  
 			}
 			
@@ -78,7 +78,7 @@ public class CDao implements IDao{
 		return dtos;
 	}
 	
-	public void signup(HashMap<String,String> param){
+	public void doSignup(HashMap<String,String> param){
 		
 		Connection conn = null;
 		PreparedStatement pstm = null;

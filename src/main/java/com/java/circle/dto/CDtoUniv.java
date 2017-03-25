@@ -4,6 +4,11 @@ public class CDtoUniv {
 	int univ_id;
 	String name;
 	
+	public CDtoUniv() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	public CDtoUniv(int univ_id, String name) {
 		super();
 		this.univ_id = univ_id;
