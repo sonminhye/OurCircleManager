@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+  
+<mapper namespace="com.java.circle.dao.UserMapper">
+	<select id="showList" resultType="com.java.circle.dto.CDtoUser">
+		SELECT * FROM cUser ORDER BY USER_ID DESC
+	</select>
+	
+	<insert id="doSignup" parameterType="HashMap">
+		INSERT INTO cUser (account, password, name, auth_id, univ_id) 
+					VALUES (#{account}, #{password}, #{name}, #{auth}, #{univ})
+	</insert>
+	
+	<select id="checkSignup" resultType="int">
+		select count(*) as rowcount from cUser where account=#{param1}
+	</select>
+	
+<!-- 	<select id="showMyCircle" resultType="com.java.circle.dto.CDtoCircle"> -->
+<!-- 		SELECT * FROM cCircle WHERE CIRCLE_ID=(SELECT CIRCLE_ID FROM cUser_Circle WHERE ACCOUNT=#{param1}) -->
+<!-- 	</select> -->
+	
+	<select id="showUnivCircle" resultType="com.java.circle.dto.CDtoCircle">
+		SELECT * FROM cCircle WHERE UNIV_ID=(SELECT UNIV_ID FROM cUser WHERE ACCOUNT=#{param1})
+	</select>
+	
+
+</mapper>

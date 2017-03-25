@@ -1,14 +1,14 @@
 package com.java.circle.controller;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,11 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.java.circle.command.CCircleCheckCommand;
 import com.java.circle.command.CCommand;
-import com.java.circle.command.CListCommand;
-import com.java.circle.command.CSignupCheckCommand;
-import com.java.circle.command.CSignupCommand;
-import com.java.circle.command.CUnivCircleListCommand;
-import com.java.circle.dao.UserMapper;
+import com.java.circle.dao.UserService;
+import com.java.circle.dto.CDtoCircle;
+import com.java.circle.dto.CDtoUser;
 
 @Controller
 public class CController {
@@ -29,13 +27,25 @@ public class CController {
 	Model myModel = null;
 	
 	@Autowired
-	private SqlSession sqlSession;
+	private UserService userService;
 	
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String showMain(){
 		return "main";
 	}
+	
+	//TEST용//////////////
+	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
+	public String list(Model model) {
+		System.out.println("list()");
+		
+		List<CDtoUser> list = userService.showList();
+		model.addAttribute("list", list);
+		return "user_list";
 
+	}
+	/////////////////////
+	
 	@RequestMapping(value = "/signin_view", method = RequestMethod.GET)
 	public String showSignin(){		
 		return "signin_view";
@@ -51,32 +61,24 @@ public class CController {
 	public String showSignup(Locale locale, Model model) {
 		return "signup_view";
 	}
-	
-	//TEST용
-	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
-	public String list(Model model) {
-		System.out.println("list()");
-		
-		UserMapper dao = sqlSession.getMapper(UserMapper.class);
-		model.addAttribute("list", dao.showList());
-//		command = new CListCommand();
-//		command.execute(model);
-//		
-//		System.out.println(model.asMap().get("list").toString());
-		return "user_list";
-	}
-	//
+
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String doSignup(HttpServletRequest request, Model model){
 		
 		System.out.println("doSignup()");
 		
-		model.addAttribute("request", request);
-		command = new CSignupCommand();
-		command.execute(model);
+		HashMap<String, String> param = new HashMap<String, String>();
 		
-		return "signup_welcome"; //가입하고 나면 로그인 화면으로 -> 웰컴페이지로 가게 수정
+		param.put("account", request.getParameter("account"));
+		param.put("password", request.getParameter("password"));
+		param.put("name", request.getParameter("name"));
+		param.put("auth", request.getParameter("auth"));
+		param.put("univ", request.getParameter("univ"));
+		
+		userService.doSignup(param);
+
+		return "signup_welcome"; //가입하고 나면 웰컴페이지로
 	}
 
 	
@@ -86,16 +88,16 @@ public class CController {
 	public String checkSignup(HttpServletRequest request, Model model){
 		
 		System.out.println("checkSignup()");
-
+//
 		String account = request.getParameter("account");
-		//request 의 값을 model 에 추가해주기
-		model.addAttribute("account", account);
-		
-		command = new CSignupCheckCommand();
-		command.execute(model);
-		
-		
-		return model.asMap().get("check").toString();
+//		//request 의 값을 model 에 추가해주기
+//		model.addAttribute("account", account);
+//		
+//		command = new CSignupCheckCommand();
+//		command.execute(model);
+//		
+		int rowcount = userService.checkSignup(account);
+		return String.valueOf(rowcount);
 	}
 	
 	//우선 로그인 여부를 이 때 검사하고, check_Circle 로 넘어간다.
@@ -138,15 +140,13 @@ public class CController {
 	@RequestMapping(value = "/nocircle_view", method = RequestMethod.GET)
 	public String goNoCircle(Model model){
 		System.out.println("noCircleView()");
-		
-		String account=null;
+
 		//현재 시큐리티로 로그인 된 정보를 가져온다.
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		account = authentication.getName();
-		model.addAttribute("account", account);
-		
-		command = new CUnivCircleListCommand();
-		command.execute(model);
+		String account = authentication.getName();
+
+		List<CDtoCircle> list = userService.showUnivCircle(account);
+		model.addAttribute("list", list);
 		
 		return "nocircle_view";
 	}

@@ -78,7 +78,7 @@ public class CDao implements UserMapper{
 		return dtos;
 	}
 	
-	public void signup(HashMap<String,String> param){
+	public void doSignup(HashMap<String,String> param){
 		
 		Connection conn = null;
 		PreparedStatement pstm = null;
