@@ -10,6 +10,7 @@ public class CGetCircleInfoCommand implements CCommand{
 	@Override
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
+		/*
 		CDao dao = new CDao();
 		
 		String circleid = model.asMap().get("circle_id").toString();
@@ -17,7 +18,7 @@ public class CGetCircleInfoCommand implements CCommand{
 		CDtoCircle dto = dao.showCircle(circleid);
 		
 		model.addAttribute("dto", dto);
-		
+		*/
 	}
 
 }

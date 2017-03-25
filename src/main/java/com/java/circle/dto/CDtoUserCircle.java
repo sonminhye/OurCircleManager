@@ -6,12 +6,17 @@ public class CDtoUserCircle {
 	String account;
 	String auth;
 	
+	public CDtoUserCircle() {
+		// TODO Auto-generated constructor stub
+	}
+	
 	public CDtoUserCircle(int circle_id, String account, String auth) {
 		super();
 		this.circle_id = circle_id;
 		this.account = account;
 		this.auth = auth;
 	}
+
 	public int getCircle_id() {
 		return circle_id;
 	}

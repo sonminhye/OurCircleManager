@@ -11,6 +11,8 @@ public class CAddcircleCheckCommand implements CCommand{
 	@Override
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
+		
+		/*
 		Map<String, Object> map = model.asMap(); 
 		//Map<String,Object> dataMap =  (Map<String, Object>) map.get("account"); //param의 값을 가져온다
 		
@@ -22,6 +24,7 @@ public class CAddcircleCheckCommand implements CCommand{
 		int n = dao.checkAddcircle(name);
 		
 		model.addAttribute("check", n);
+		*/
 	}
 
 }

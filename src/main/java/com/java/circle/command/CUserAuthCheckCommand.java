@@ -11,7 +11,7 @@ public class CUserAuthCheckCommand implements CCommand {
 	@Override
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
-		
+		/*
 		String account = model.asMap().get("account").toString();
 		String circle_id = model.asMap().get("circle_id").toString();
 		
@@ -22,6 +22,7 @@ public class CUserAuthCheckCommand implements CCommand {
 		
 		model.addAttribute("myAuthInThisCircle", dto);
 		
+		*/
 	}
 	
 }

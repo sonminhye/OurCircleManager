@@ -302,6 +302,7 @@ public class CDao{
 		}
 		return dtos;
 	}
+
 	
 
 	//해당 account가 속한 학교 정보
@@ -346,7 +347,7 @@ public class CDao{
 		return dto;
 	}
 	
-	
+	/* CircleService.java 에 구현해줬기 때문에 주석처리 함
 	//동아리만들 때 이름 중복체크
 	public int checkAddcircle(String name){
 		Connection conn = null;
@@ -434,7 +435,14 @@ public class CDao{
 
 		return circle_id;
 	}
+    */
 
+
+
+	/*
+	 * 
+	 * 이제 이 부분은 따로 CircleManageService 에서 관리 하니까 주석 처리 함!
+	 * 
 	public CDtoCircle showCircle(String circleid){
 		
 		CDtoCircle dto = null;
@@ -538,7 +546,7 @@ public class CDao{
 			return dto;
 		}
 		
-		
+		*/
 		
 	
 }

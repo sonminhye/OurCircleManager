@@ -3,14 +3,14 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
+<mapper namespace="com.java.circle.dao.CircleManageMapper">
 
 	<select id="showCircle" parameterType="String" resultType="com.java.circle.dto.CDtoCircle">
 		select * from cCircle where circle_id=#{circle_id}
 	</select>
 
-	<select id="showMyAuthInThisCircle" resultType="com.java.circle.dto.CDtoUserCircle">
-		select * from cUser_Circle where account=? and circle_id=?
+	<select id="showMyAuthInThisCircle"  parameterType="HashMap" resultType="com.java.circle.dto.CDtoUserCircle">
+		select * from cUser_Circle where account=#{account} and circle_id=#{circle_id}
 	</select>
 	
 	

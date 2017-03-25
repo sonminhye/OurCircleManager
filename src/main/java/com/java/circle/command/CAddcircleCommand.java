@@ -14,7 +14,7 @@ public class CAddcircleCommand implements CCommand {
 	@Override
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
-
+		/*
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		System.out.println("addcircleCommand");
@@ -34,7 +34,7 @@ public class CAddcircleCommand implements CCommand {
 		
 		int circle_id = dao.addCircle(param);
 		model.addAttribute("circle_id", circle_id);
-		
+		*/
 	}
 
 }

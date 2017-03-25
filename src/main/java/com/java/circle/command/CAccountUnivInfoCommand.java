@@ -12,6 +12,7 @@ public class CAccountUnivInfoCommand implements CCommand {
 	@Override
 	public void execute(Model model) {
 		// TODO Auto-generated method stub
+		/*
 		Map<String, Object> map = model.asMap(); 
 		String account = map.get("account").toString();
 		
@@ -19,7 +20,7 @@ public class CAccountUnivInfoCommand implements CCommand {
 		CDtoUniv dto =  dao.showUnivInfo(account);
 		
 		model.addAttribute("univ", dto);
-		
+		*/
 	}
 
 }
