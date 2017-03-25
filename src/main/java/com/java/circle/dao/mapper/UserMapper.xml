@@ -5,7 +5,7 @@
 
   
   
-<mapper namespace="com.java.circle.dao.IDao">
+<mapper namespace="com.java.circle.dao.UserMapper">
 	<select id="showList" resultType="com.java.circle.dto.CDto">
 		SELECT * FROM cUser ORDER BY USER_ID DESC
 	</select>

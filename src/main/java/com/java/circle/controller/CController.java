@@ -21,7 +21,7 @@ import com.java.circle.command.CListCommand;
 import com.java.circle.command.CSignupCheckCommand;
 import com.java.circle.command.CSignupCommand;
 import com.java.circle.command.CUnivCircleListCommand;
-import com.java.circle.dao.IDao;
+import com.java.circle.dao.UserMapper;
 
 @Controller
 public class CController {
@@ -57,7 +57,7 @@ public class CController {
 	public String list(Model model) {
 		System.out.println("list()");
 		
-		IDao dao = sqlSession.getMapper(IDao.class);
+		UserMapper dao = sqlSession.getMapper(UserMapper.class);
 		model.addAttribute("list", dao.showList());
 //		command = new CListCommand();
 //		command.execute(model);
