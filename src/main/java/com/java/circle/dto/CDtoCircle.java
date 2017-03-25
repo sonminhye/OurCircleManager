@@ -9,6 +9,9 @@ public class CDtoCircle {
 	String intro;
 	String image;
 	
+	public CDtoCircle(){
+		
+	}
 	
 
 	public CDtoCircle(int circle_id, String name, int membercount, int univ_id, int circle_category_id, String intro,

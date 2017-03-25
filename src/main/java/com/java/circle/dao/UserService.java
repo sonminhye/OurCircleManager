@@ -29,6 +29,17 @@ public class UserService implements UserMapper{
 		return result;
 	}
 	
+	
+	@Override
+	public ArrayList<CDtoUniv> showUnivList(){
+		ArrayList<CDtoUniv> result = new ArrayList<CDtoUniv>();
+		UserMapper dao = sqlSession.getMapper(UserMapper.class);
+		
+		result = dao.showUnivList();
+		return result;
+		
+	}
+	
 	@Override
 	public void doSignup(HashMap<String, String> param){
 		UserMapper dao = sqlSession.getMapper(UserMapper.class);
@@ -45,10 +56,14 @@ public class UserService implements UserMapper{
 	}
 	
 	//해당 account가 가입한 동아리 리스트
-//	@Override
-//	public ArrayList<CDtoCircle> showMyCircle(String account){
-//		
-//	}
+	@Override
+	public ArrayList<CDtoCircle> showMyCircle(String account){
+		ArrayList<CDtoCircle> result = new ArrayList<CDtoCircle>();
+		UserMapper dao = sqlSession.getMapper(UserMapper.class);
+
+		result = dao.showMyCircle(account);
+		return result;
+	}
 	
 	//해당 account가 속한 학교에 있는 동아리 목록
 	@Override

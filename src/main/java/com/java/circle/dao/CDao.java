@@ -21,7 +21,7 @@ import com.java.circle.dto.CDtoCircle;
 import com.java.circle.dto.CDtoUniv;
 import com.java.circle.dto.CDtoUserCircle;
 
-public class CDao implements UserMapper{
+public class CDao{
 
 	ConnectionMaker connectionMaker;
 	

@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.java.circle.dto.CDtoUser;
 
-public class ContentDao implements UserMapper{
+public class ContentDao{
 	JdbcTemplate template;
 	
 	@Autowired
@@ -20,7 +20,6 @@ public class ContentDao implements UserMapper{
 		// TODO Auto-generated constructor stub
 	}
 	
-	@Override
 	public ArrayList<CDtoUser> showList() {
 		String query = "select * from board order by mId desc";
 		ArrayList<CDtoUser> dtos = (ArrayList<CDtoUser>) template.query(query, new BeanPropertyRowMapper<CDtoUser>(CDtoUser.class));

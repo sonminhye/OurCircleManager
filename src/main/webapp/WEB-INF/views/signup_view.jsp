@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -151,14 +152,16 @@ span{
 			<div id="checkPwd">비밀번호와 똑같이 입력해주세요</div>
 
 		</div>
-		<!-- to do : 대학교도 DB에서 리스트 가져오도록 구현하깅 -->
+		
 		<div class="form-group">
 			<label for="nameinput">학교</label>
 			<select name="univ"  class="form-control">
-					<option value="0">-학교선택-</option>
-   					<option value="1">동국대학교</option>
-   					<option value="2">서울대학교</option>
-   			  </select>
+			<option value="0">-학교선택-</option>
+			<!-- DB에서 대학교 리스트 불러와서 출력 -->
+			<c:forEach items="${univ}" var="dto">
+				<option value="${dto.univ_id}">${dto.name}</option>
+			</c:forEach>
+   			</select>
 		</div>
 		<input type="submit" value="join" id="join" class="btn btn-primary btn-block">
 	</form>		

@@ -19,6 +19,7 @@ import com.java.circle.command.CCircleCheckCommand;
 import com.java.circle.command.CCommand;
 import com.java.circle.dao.UserService;
 import com.java.circle.dto.CDtoCircle;
+import com.java.circle.dto.CDtoUniv;
 import com.java.circle.dto.CDtoUser;
 
 @Controller
@@ -59,6 +60,11 @@ public class CController {
 
 	@RequestMapping(value = "/signup_view", method = RequestMethod.GET)
 	public String showSignup(Locale locale, Model model) {
+		System.out.println("signup_view");
+		//대학교리스트구하기
+		List<CDtoUniv> list = userService.showUnivList();
+		model.addAttribute("univ", list);
+		
 		return "signup_view";
 	}
 
@@ -121,18 +127,22 @@ public class CController {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		account = authentication.getName();
 		
-		model.addAttribute("account", account);
-	
-		command = new CCircleCheckCommand();
-		command.execute(model);
+		List<CDtoCircle> myCircleList = userService.showMyCircle(account);
+		List<CDtoCircle> univCircleList = userService.showUnivCircle(account);
 		
-		System.out.println(model.asMap().get("circleList").toString());
-		
-		if(model.asMap().get("circleList").toString().equals("[]")) //동아리 정보가 없다는 뜻
-			return "redirect:nocircle_view";
-		else{
-			return "redirect:circle_view";
+		if(myCircleList.isEmpty()){  //account의 유저가 가입한 동아리 없을 때
+			if(univCircleList.isEmpty()){ //account의 유저가 속한 학교에도 동아리가 없을 때
+				return "nounivcircle_view";
+			}else{
+				model.addAttribute("list", univCircleList);
+				return "nocircle_view";
+			}
+		}else{ //account의 유저가 가입한 동아리 있을 때 : 동아리 목록 출력
+			model.addAttribute("list", myCircleList);
+			return "circle_view";
 		}
+		//redirect써주면 해당 주소가 매핑된 메소드로 가게되는데 model을 함께 전달하려면 더 복잡해져서
+		//그냥 redirect를 삭제하고 바로 해당주소를 return하게했어용
 	}
 	
 	
@@ -141,19 +151,17 @@ public class CController {
 	public String goNoCircle(Model model){
 		System.out.println("noCircleView()");
 
-		//현재 시큐리티로 로그인 된 정보를 가져온다.
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String account = authentication.getName();
-
-		List<CDtoCircle> list = userService.showUnivCircle(account);
-		model.addAttribute("list", list);
-		
 		return "nocircle_view";
+	}
+	
+	@RequestMapping(value = "/nounivcircle_view", method = RequestMethod.GET)
+	public String noUnivCircle(Model model){
+		return "nounivcircle_view";
 	}
 	
 	@RequestMapping(value = "/circle_view", method = RequestMethod.GET)
 	public String goCircle(Model model){
-		model.addAttribute("circleList",myModel.asMap().get("circleList")); //동아리 정보넣어주기		
+		model.addAttribute("circleList",myModel.asMap().get("list")); //동아리 정보넣어주기		
 		
 		return "circle_view";
 	}

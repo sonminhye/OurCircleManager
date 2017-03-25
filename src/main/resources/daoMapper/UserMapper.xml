@@ -10,6 +10,10 @@
 		SELECT * FROM cUser ORDER BY USER_ID DESC
 	</select>
 	
+	<select id="showUnivList" resultType="com.java.circle.dto.CDtoUniv">
+		SELECT * FROM cUniv ORDER BY UNIV_ID DESC
+	</select>
+	
 	<insert id="doSignup" parameterType="HashMap">
 		INSERT INTO cUser (account, password, name, auth_id, univ_id) 
 					VALUES (#{account}, #{password}, #{name}, #{auth}, #{univ})
@@ -19,9 +23,9 @@
 		select count(*) as rowcount from cUser where account=#{param1}
 	</select>
 	
-<!-- 	<select id="showMyCircle" resultType="com.java.circle.dto.CDtoCircle"> -->
-<!-- 		SELECT * FROM cCircle WHERE CIRCLE_ID=(SELECT CIRCLE_ID FROM cUser_Circle WHERE ACCOUNT=#{param1}) -->
-<!-- 	</select> -->
+	<select id="showMyCircle" resultType="com.java.circle.dto.CDtoCircle">
+		SELECT * FROM cCircle WHERE CIRCLE_ID=(SELECT CIRCLE_ID FROM cUser_Circle WHERE ACCOUNT=#{param1})
+	</select>
 	
 	<select id="showUnivCircle" resultType="com.java.circle.dto.CDtoCircle">
 		SELECT * FROM cCircle WHERE UNIV_ID=(SELECT UNIV_ID FROM cUser WHERE ACCOUNT=#{param1})
