@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.java.circle.command.CCircleCheckCommand;
-import com.java.circle.command.CCommand;
 import com.java.circle.dao.UserService;
 import com.java.circle.dto.CDtoCircle;
 import com.java.circle.dto.CDtoUniv;
@@ -24,7 +22,6 @@ import com.java.circle.dto.CDtoUser;
 
 @Controller
 public class CController {
-	CCommand command = null;
 	Model myModel = null;
 	
 	@Autowired
@@ -37,7 +34,7 @@ public class CController {
 	
 	//TEST용//////////////
 	@RequestMapping(value = "/user_list", method = RequestMethod.GET)
-	public String list(Model model) {
+	public String showList(Model model) {
 		System.out.println("list()");
 		
 		List<CDtoUser> list = userService.showList();
@@ -45,7 +42,7 @@ public class CController {
 		return "user_list";
 
 	}
-	/////////////////////
+	
 	
 	@RequestMapping(value = "/signin_view", method = RequestMethod.GET)
 	public String showSignin(){		
@@ -94,14 +91,9 @@ public class CController {
 	public String checkSignup(HttpServletRequest request, Model model){
 		
 		System.out.println("checkSignup()");
-//
+
 		String account = request.getParameter("account");
-//		//request 의 값을 model 에 추가해주기
-//		model.addAttribute("account", account);
-//		
-//		command = new CSignupCheckCommand();
-//		command.execute(model);
-//		
+
 		int rowcount = userService.checkSignup(account);
 		return String.valueOf(rowcount);
 	}
@@ -117,7 +109,7 @@ public class CController {
 	//이 함수의 경우는 그 두 방식 모두 틀리지않고 완전 기능이 구현됐기 때문에 굳이 구분이 있을 필요가 있나 싶어서 method 를 우선 없애줬음...
 	//위의 check_SigninOk 함수도 마찬가지로 별다른 역할 차이가 없어서 없애줌...
 	@RequestMapping(value="/check_circle")
-	public String check_Circle(Model model){
+	public String checkCircle(Model model){
 		
 		System.out.println("checkCircle()");
 		//System.out.println("version:Post");
@@ -144,29 +136,6 @@ public class CController {
 		//redirect써주면 해당 주소가 매핑된 메소드로 가게되는데 model을 함께 전달하려면 더 복잡해져서
 		//그냥 redirect를 삭제하고 바로 해당주소를 return하게했어용
 	}
-	
-	
-	//로그인 후 가입한 동아리가 없을 때 
-	@RequestMapping(value = "/nocircle_view", method = RequestMethod.GET)
-	public String goNoCircle(Model model){
-		System.out.println("noCircleView()");
-
-		return "nocircle_view";
-	}
-	
-	@RequestMapping(value = "/nounivcircle_view", method = RequestMethod.GET)
-	public String noUnivCircle(Model model){
-		return "nounivcircle_view";
-	}
-	
-	@RequestMapping(value = "/circle_view", method = RequestMethod.GET)
-	public String goCircle(Model model){
-		model.addAttribute("circleList",myModel.asMap().get("list")); //동아리 정보넣어주기		
-		
-		return "circle_view";
-	}
-	
-
 	
 }
 
