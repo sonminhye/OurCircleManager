@@ -62,23 +62,23 @@ span{
 	function sendAccount() {
 	 if (loopSendKeyword == false) return;
 	 
+	//var regAccount =  /^[a-z]{5,15}+$/;
 	 var keyword = document.forms[0].account.value;
 	 if (keyword == '') {
 	  lastKeyword = '';
 	  document.getElementById('checkMsg').style.color = "black";
 	  document.getElementById('checkMsg').innerHTML = "아이디를 입력하세요.";
-	 } else if (keyword != lastKeyword) {
+	 }
+
+	 else if (keyword != lastKeyword) {
 	  lastKeyword = keyword;
-	  
-	  if (keyword != '') {
-		
-	 		  var params = "account="+encodeURIComponent(keyword);
-		 	  sendRequest("check_signup", params, displayResult, 'POST');
-		  
-	  } 
-	  
-	  else {
-	  }
+
+		if (keyword != '') {
+		  //중복검사
+ 		  var params = "account="+encodeURIComponent(keyword);
+	 	  sendRequest("check_signup", params, displayResult, 'POST');
+		}else {
+		}
 	 }
 	 setTimeout("sendAccount();", 500);
 	}
